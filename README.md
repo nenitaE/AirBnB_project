@@ -2,7 +2,7 @@
 
 ## Database Schema Design
 
-`<insert database schema design here>`
+![AirBnB Clone](https://user-images.githubusercontent.com/71307394/222933206-f50b4834-ebc7-4a04-8c50-89f3fc6dc82e.png)
 
 ## API Documentation
 
