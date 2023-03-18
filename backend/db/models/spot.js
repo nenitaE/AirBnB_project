@@ -10,7 +10,32 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Spot.hasMany(
+        models.Review,
+        {
+          foreignKey: "spotId",
+          onDelete: "CASCADE",
+          hooks: true          
+        }
+      );
+      Spot.hasMany(
+        models.SpotImage,
+        {
+          foreignKey: "spotId",
+          onDelete: "CASCADE",
+          hooks: true          
+        }
+      );
+      Spot.hasMany(
+        models.Booking,
+        {
+          foreignKey: "spotId",
+          onDelete: "CASCADE",
+          hooks: true          
+        }
+      );
+      Spot.belongsTo(models.User,
+        {foreignKey: "ownerId"});
     }
   }
   Spot.init({
@@ -23,9 +48,7 @@ module.exports = (sequelize, DataTypes) => {
     lng: DataTypes.DECIMAL,
     name: DataTypes.STRING,
     description: DataTypes.STRING,
-    price: DataTypes.INTEGER,
-    createdAt: DataTypes.DATE,
-    updatedAt: DataTypes.DATE
+    price: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Spot',
