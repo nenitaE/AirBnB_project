@@ -49,7 +49,7 @@ const setTokenCookie = (res, user) => {
       return next();
     });
   };
-
+  //throw error if no curr user
   const requireAuth = function (req, _res, next) {
     if (req.user) return next();
   

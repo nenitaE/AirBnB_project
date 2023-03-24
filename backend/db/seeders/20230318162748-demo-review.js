@@ -27,6 +27,12 @@ module.exports = {
         userId: '1',
         review: "Luxurious hotel penthouse with gorgeous views.  Easy access to everything.",
         stars: 5
+      },
+      {
+        spotId: '3',
+        userId: '2',
+        review: "Noise from the city was not appealing and the bed was uncomfortable. But otherwise the views were beautiful.",
+        stars: 2
       }
     ], {});
   },
