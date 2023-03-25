@@ -2,8 +2,8 @@ const express = require('express');
 const {Sequelize, Op} = require("sequelize")
 const { setTokenCookie, requireAuth, restoreUser } = require('../../utils/auth');
 const { User, Spot, SpotImage, Review, ReviewImage, Booking } = require('../../db/models');
-const { check, validationResult } = require('express-validator');
-const { handleSpotValidationErrors } = require('../../utils/validation');
+const { check, body, validationResult } = require('express-validator');
+const { handleSpotValidationErrors, handleValidationErrors } = require('../../utils/validation');
 const router = express.Router();
 
 
@@ -37,6 +37,17 @@ const validateNewSpot = [
         .withMessage('Price per day is required'),
     handleSpotValidationErrors
 ];
+
+const validateReview = [
+    check('review')
+        .exists({checkFalsy: true})
+        .withMessage('Review text is required'),
+    check('stars')
+        .exists({checkFalsy: true})
+        .isInt({ min: 1, max: 5})
+        .withMessage('Stars must be an integer from 1 to 5'),
+    handleValidationErrors
+  ]
 
 //Edit a spot
 //Updates and returns an existing spot.
@@ -140,6 +151,44 @@ router.post('/:spotId/images', restoreUser, requireAuth, async (req, res) => {
 
 })
   
+// Create a Review for a Spot based on the Spot's id
+// Create and return a new review for a spot specified by id.
+
+router.post('/:spotId/reviews', restoreUser, requireAuth, validateReview, async (req, res) => {
+    const { spotId } = req.params
+    const { review, stars } = req.body
+    const userId = req.user.id
+  
+    const spot = await Spot.findByPk(spotId)
+      
+    if (!spot) {
+        return res.status(404).json({ 
+            message: "Spot couldn't be found", 
+            statusCode: 404
+        })
+    }
+  
+    const existingReview = await Review.findOne({
+        where: { 
+            userId, 
+            spotId 
+        }
+    })
+    
+    if (existingReview) {
+        return res.status(403).json({
+            message: 'User already has a review for this spot',
+            statusCode: 403
+        })
+      }
+  
+    const newReview = await Review.create({ review, stars, userId, spotId })
+  
+    return res.status(201).json(newReview)
+  
+  })
+
+
 
 
 // Create a Spot
@@ -275,6 +324,37 @@ router.get('/:spotId', async (req, res) => {
 });
 
 
+// Get all Reviews by a Spot's id
+// Returns all the reviews that belong to a spot specified by id.
+
+router.get('/:spotId/reviews', async (req, res) => {
+    try {
+      const spotId = req.params.spotId
+      const spot = await Spot.findByPk(spotId)
+      if (!spot) {
+        return res.status(404).json({
+          message: "Spot couldn't be found",
+          statusCode: 404
+        })
+      }
+  
+      const reviews = await Review.findAll({
+        where: { spotId },
+        include: [
+              {model: User,attributes: ['id', 'firstName', 'lastName']},
+              {model: ReviewImage,attributes: ['id', 'url']},
+            ]
+      });
+      return res.status(200).json({ Reviews: reviews })
+    } 
+    catch (error) {
+      console.error(error);
+      return res.status(500).json({
+        message: 'Internal server error',
+        statusCode: 500
+      })
+    }
+  })
 
 
 //Get all spots; add an average stars rating and
