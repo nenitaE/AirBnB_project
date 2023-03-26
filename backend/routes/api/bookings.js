@@ -30,8 +30,8 @@ router.delete('/:bookingId', restoreUser, requireAuth, async (req, res) => {
     }
     if (booking.userId !== userId && booking.Spot.userId !== userId) {
         return res.status(403).json({
-            message: "Unauthorized user",
-            statusCode: 403
+            message: 'Forbidden',
+            statusCode: 403,
         })
     }
     await booking.destroy()
@@ -55,8 +55,8 @@ router.put('/:bookingId', restoreUser, requireAuth, async (req, res) => {
     }
     if (booking.userId !== req.user.id) {
         return res.status(403).json({
-          message: "Unauthorized user",
-          statusCode: 403
+            message: 'Forbidden',
+            statusCode: 403,
         })
     }
 

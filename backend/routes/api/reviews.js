@@ -63,7 +63,7 @@ router.put('/:reviewId', restoreUser, requireAuth, validateReview, async (req, r
         return res.json(review);
     } else {
         return res.status(403).json({
-            message: 'Unauthorized User',
+            message: 'Forbidden',
             statusCode: 403,
         })
     }
@@ -107,7 +107,7 @@ router.post('/:reviewId/images', restoreUser, requireAuth, validateReviewImage, 
         return res.status(200).json({id, url})
     } else {
         return res.status(403).json({
-            message: 'Unauthorized User',
+            message: 'Forbidden',
             statusCode: 403,
         })
     }
@@ -139,8 +139,8 @@ router.delete('/:reviewId', restoreUser, requireAuth, async (req, res) => {
         })
     } else {
         return res.status(403).json({
-            message: 'Unauthorized User',
-            statusCode: 403
+            message: 'Forbidden',
+            statusCode: 403,
         })
     }
 })

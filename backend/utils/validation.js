@@ -12,33 +12,16 @@ const handleValidationErrors = (req, _res, next) => {
       .array()
       .forEach(error => errors[error.param] = error.msg);
 
-    const err = Error("Bad request.");
+    const err = Error("Validation error");
     err.errors = errors;
     err.status = 400;
-    err.title = "Bad request.";
+    err.title = "Validation error.";
     next(err);
   }
   next();
 };
-const handleSpotValidationErrors = (req, _res, next) => {
-  const validationErrors = validationResult(req);
 
-  if (!validationErrors.isEmpty()) { 
-    const errors = {};
-    validationErrors
-      .array()
-      .forEach(error => errors[error.param] = error.msg);
-
-    const err = Error("Validation Error");
-    err.errors = errors;
-    err.status = 400;
-    err.title = "Validation Error";
-    next(err);
-  }
-  next();
-};
 
 module.exports = {
-  handleValidationErrors,
-  handleSpotValidationErrors
+  handleValidationErrors
 };

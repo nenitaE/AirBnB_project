@@ -10,7 +10,7 @@ const router = express.Router();
 //Delete a Spot Image
 
 router.delete('/:imageId', restoreUser, requireAuth, async (req, res) => {
-    console.log("HERE")
+    
     console.log(req.params.imageId)
     const imageId = req.params.imageId;
     const userId = req.user.id;
@@ -24,9 +24,7 @@ router.delete('/:imageId', restoreUser, requireAuth, async (req, res) => {
             statusCode: 404
         })
     }
-    // console.log(getSpotImage.Spot.ownerId, "SpotOwner")
-    // console.log(getSpotImage.Spot.userId, "spotuser")
-    // console.log(userId, "req.user.id")
+ 
     if (getSpotImage.Spot.ownerId === userId) {
         await getSpotImage.destroy()
         return res.json({
@@ -35,7 +33,7 @@ router.delete('/:imageId', restoreUser, requireAuth, async (req, res) => {
         })
     } else {
         return res.status(403).json({
-            message: 'Unauthorized user',
+            message: 'Forbidden',
             statusCode: 403,
         })
 

@@ -3,7 +3,7 @@ const {Sequelize, Op} = require("sequelize")
 const { setTokenCookie, requireAuth, restoreUser } = require('../../utils/auth');
 const { User, Spot, SpotImage, Review, ReviewImage, Booking } = require('../../db/models');
 const { check, body, query, validationResult } = require('express-validator');
-const { handleSpotValidationErrors, handleValidationErrors } = require('../../utils/validation');
+const { handleValidationErrors } = require('../../utils/validation');
 const router = express.Router();
 
 const validateFilters = [
@@ -70,7 +70,7 @@ const validateNewSpot = [
     check('price')
         .exists({ checkFalsy: true })
         .withMessage('Price per day is required'),
-    handleSpotValidationErrors
+    handleValidationErrors
 ];
 
 const validateReview = [
@@ -100,10 +100,10 @@ router.put('/:spotId', restoreUser, requireAuth, validateNewSpot, async (req, re
     }
 
     if (spot.ownerId !== userId) {
-      return res.status(403).json({
-        message: 'Unauthorized user',
-        // statusCode: 401,
-      })
+        return res.status(403).json({
+            message: 'Forbidden',
+            statusCode: 403,
+        })
     }
 
     const updatedSpot = await spot.update(req.body)
@@ -203,7 +203,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
 
 
 // Add an Image to a Spot based on the Spot's id
-router.post('/:spotId/images', restoreUser, async (req, res) => {
+router.post('/:spotId/images', restoreUser, requireAuth, async (req, res) => {
     const spotId = req.params.spotId
     const newImage = req.body
     const {user} = req
@@ -223,7 +223,10 @@ router.post('/:spotId/images', restoreUser, async (req, res) => {
         }
   
         if(spot.ownerId !== user.id ){
-          return res.status(403).json({message: 'Unauthorized User'})
+            return res.status(403).json({
+                message: 'Forbidden',
+                statusCode: 403,
+            })
       }
   
         const addImage = await SpotImage.create(newImage)
@@ -438,7 +441,7 @@ router.get('/:spotId/reviews', async (req, res) => {
 //   Get all Bookings for a Spot based on the Spot's id
 //   Return all the bookings for a spot specified by id.
 
-router.get('/:spotId/bookings', async (req, res) => {
+router.get('/:spotId/bookings', requireAuth, async (req, res) => {
     const spotId = req.params.spotId
     const userId = req.user.id
   
@@ -504,87 +507,7 @@ router.get('/:spotId/bookings', async (req, res) => {
         })
     }
 })
-    // console.log(req.params)
-    // const spotId = req.params.spotId
-    // const userId = req.user.id
-    // console.log(userId, "userId")
-
-    // const getSpot = await Spot.findByPk(spotId)
-    // console.log(getSpot.dataValues.ownerId, "getSpot")
-
-    // if (!getSpot) {
-    //     return res.status(404).json({
-    //     message: "Spot couldn't be found",
-    //     statusCode: 404
-    //     })
-    // }
-    // if (getSpot.dataValues.ownerId !== userId) {
-    //     console.log("HERE")
-    //     const userBookings = await Booking.findAll({
-    //         where: {
-    //             userId: userId,
-    //             spotId: getSpot.id
-    //         },
-    //         attributes: ['spotId', 'startDate', 'endDate']
-        
-    //     })  
-    //     console.log(userBookings, "userBookings")      
-    //     const mappedBookings = userBookings.map((booking) => {
-    //         return {
-    //             spotId: booking.spotId,
-    //             startDate: booking.startDate,
-    //             endDate: booking.endDate
-    //         }
-    //     })   
-    //     return res.status(200).json({
-    //         Bookings: mappedBookings
-    //     })
-    // }
-    // if (getSpot.dataValues.ownerId === userId) {
-    //     const ownerBookings = await Booking.findAll({
-    //         where: {
-    //             userId: userId,
-    //             spotId: getSpot       
-    //         },
-    //         include: {
-    //             model: User,
-    //             attributes: ['id', 'firstName', 'lastName']
-    //         },
-    //         attributes: ['spotId', 'startDate', 'endDate', 'createdAt', 'updatedAt']
-    //     });
-    //     console.log(ownerBookings, "owner bookings")
-        
-    //     const mappedBookings = ownerBookings.map((booking) => {
-    //         return {
-    //             spotId: booking.spotId,
-    //             userId: userId,
-    //             startDate: booking.startDate,
-    //             endDate: booking.endDate,
-    //             createdAt: booking.createdAt,
-    //             updatedAt: booking.updatedAt,
-
-    //             User: {
-    //                 id: booking.User.id,
-    //                 firstName: booking.User.firstName,
-    //                 lastName: booking.User.lastName
-    //             }
-    //         }
-    //     })
-        
-    //     return res.status(200).json({
-    //         Bookings: mappedBookings
-    //     })
-    // }
-
-    
-
-    
-
-
-
-
-
-
+ 
 
 //Get all spots; add an average stars rating and
 // url to spotImage
