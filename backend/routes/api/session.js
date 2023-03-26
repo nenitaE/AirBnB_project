@@ -30,15 +30,17 @@ router.post(
       const user = await User.login({ credential, password });
   
       if (!user) {
-        const err = new Error('Invalid credentials');
-        err.status = 401;
-        return next(err);
+        const error = {
+          message: 'Invalid credentials',
+          statusCode: 401
+        }
+        return res.status(401).json(error);
       }
   
       await setTokenCookie(res, user);
   
       return res.json({
-        user: user
+        user
       });
     }
   );
@@ -56,14 +58,14 @@ router.delete(
 // Restore session user
 router.get(
   '/',
-  requireAuth, restoreUser, 
+  restoreUser, 
   (req, res) => {
     const { user } = req;
     if (user) {
       return res.json({
         user: user.toSafeObject()
       });
-    } else return res.json({ user: null });
+    } else return res.status(200).json({ "user": null });
   }
 );
 
