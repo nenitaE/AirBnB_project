@@ -21,6 +21,10 @@ module.exports = {
     },
     define: {
       schema: process.env.SCHEMA
+      // Here, you are defining the schema globally, but only 
+      // when the application is running in the production 
+      // environment. As a result, in production, the schema 
+      // name will automatically be prefixed onto every request.
     }
   }
 };
