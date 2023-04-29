@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
+import { useHistory } from 'react-router-dom';
 import "./LoginForm.css";
 
 function LoginFormModal() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
@@ -23,6 +25,16 @@ function LoginFormModal() {
         }
       });
   };
+
+  const demoUserLogin = (e) =>{
+    e.preventDefault()
+    dispatch(sessionActions.login({
+      credential: 'Travel-queen',
+      password: 'password'
+    }))
+    .then(closeModal)
+    history.push('/');
+  }
 
   return (
     <>
@@ -50,6 +62,9 @@ function LoginFormModal() {
           <p>{errors.credential}</p>
         )}
         <button type="submit">Log In</button>
+        <div onClick={demoUserLogin} style={{ marginTop: '10px', marginBottom: '10px' }}>
+            <button >Demo User Login</button>
+        </div>
       </form>
     </>
   );
