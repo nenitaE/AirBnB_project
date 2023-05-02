@@ -1,61 +1,81 @@
-/* form {
+form {
     max-width: 500px;
     margin: 0 auto;
     display: flex;
     flex-direction:column;
-    align-items: left;
+    align-items: center;
     justify-content: center;
     font-family: sans-serif;
 }
+h1 {
+    color: rgb(253,90,90);
+    display: flex;
+    flex-direction:column;
+    align-items: center;
 
+}
 label {
     font-size: medium;
     display: block;
     margin-bottom: 2px;
     margin-top: 2px;
-    color: rgb(222, 9, 9);
+    color: rgb(253,90,90);
 }
 
 
-button {
+#submitButton {
+    flex-direction:column;
+    align-items: center;
     cursor: pointer;
-    color:rgb(222, 9, 9);
+    color:rgb(253,90,90);
     border: 0;
     border-radius: 4px;
-    font-weight: 600;
+    font-weight: 100;
     margin: 0 10px;
-    width: 200px;
+    width: 50%;
     padding: 10px 0;
-    box-shadow: 0 0 20px red;
     transition: 0.4s;
-  }
+    background-color: transparent;
+}
+#submitButton:hover {
+    color: white;
+    box-shadow: 0 0 3px black;
+    background-color: #fd5a5a;
+}
 
 input {
-    width: 25%;
+    width: 50 px;
     padding: 2px;
     margin-bottom: 10px;
-    border-radius: 5px;
-    margin: 20px;
-    border: rgb(224, 212, 36);
-    background-color: #e61515;
+    border-radius: 55px;
+    margin: 5px;
+    border: black;
+    background-color: #fd5a5a;
     font-size: 12px;
     color: white;
 }
 
-.demo {
+#demoButton {
+    flex-direction:column;
+    align-items: center;
+    cursor: pointer;
+    color:rgb(253,90,90);
+    border: 0;
+    border-radius: 4px;
+    width: 100%;
+    padding: 10px 0;
+    transition: 0.4s;
+    background-color: transparent;
+}
+#demoButton:hover {
     color: white;
-    background-color: red;
-    border: 1px solid red;
+    box-shadow: 0 0 3px black;
+    background-color: #fd5a5a;
 }
 
-button:hover {
-    color: white;
-    width:;
-    box-shadow: 0 0 8px red;
-    background-color: red;
-}
+
   
   
 .login {
     
-} */
+}

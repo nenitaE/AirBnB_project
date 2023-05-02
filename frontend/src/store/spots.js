@@ -4,13 +4,13 @@ import { csrfFetch } from "./csrf";
     //get all spots
 const GET_SPOTS = 'spots/getSpots'
     //get one spot
-const GET_SPOT = 'spots/getSpot'
-    //get users spots
-const GET_USER_SPOTS = 'spots/getUserSpots'
+const GET_SPOT_DETAILS = 'spots/getSpotDetails'
+    //get details of users spots 
+const MANAGE_SPOTS = 'spots/manageSpots'
     //add new spot
-const ADD_SPOT = 'spots/addSpot'
-    //edit an existing spot
-const EDIT_SPOT = 'spots/editSpot'
+const CREATE_SPOT = 'spots/createSpot'
+    //update an existing spot
+const UPDATE_SPOT = 'spots/updateSpot'
     //delete a spot
 const DELETE_SPOT = 'spots/deleteSpot'
 
@@ -23,34 +23,34 @@ const getSpots = (spots) => {
     };
 };
 
-    //get one spot
-const getSpot = (spot) => {
+    //get one spot's details
+const getSpotDetails = (spot) => {
     return {
-      type: GET_SPOT,
+      type: GET_SPOT_DETAILS,
       payload: spot,
     };
 };
 
     //get users spots
-const getUserSpots = (spots) => {
+const manageSpots = (spots) => {
     return {
-      type: GET_USER_SPOTS,
+      type: MANAGE_SPOTS,
       payload: spots,
     };
 };
 
     //add spot
-const addSpot = (spot) => {
+const createSpot = (spot) => {
     return {
-      type: ADD_SPOT,
+      type: CREATE_SPOT,
       payload: spot,
     };
 };
 
-    //edit a spot
-const editSpot = (spot) => {
+    //updatea a spot
+const updateSpot = (spot) => {
     return {
-      type: EDIT_SPOT,
+      type: UPDATE_SPOT,
       payload: spot,
     };
 };
@@ -69,7 +69,6 @@ const deleteSpot = (spot) => {
     //get all spots
 
 export const fetchSpots = () => async (dispatch) => {
-
     const response = await csrfFetch('/api/spots')
 
     if (response.ok) {
@@ -81,17 +80,71 @@ export const fetchSpots = () => async (dispatch) => {
 
 };  
     //get one spot
-
-export const fetchSpot = () => async (dispatch) => {
-
+export const fetchSpotDetails = (spotId) => async (dispatch) => {
     const response = await csrfFetch('/api/spots/${spotId}')
 
     if (response.ok) {
         const payload = await response.json();
         
-        dispatch(getSpot(spot));
+        dispatch(getSpotDetails(spot));
         return payload;
     }
+};  
+
+
+    //get users spots
+export const fetchmanageSpots = () => async (dispatch) => {
+    const response = await csrfFetch('/api/spots/current')
+
+    if (response.ok) {
+        const payload = await response.json();
+        
+        dispatch(manageSpots(spots));
+        return payload;
+    }
+};  
+
+
+    //add spot
+// export const fetchCreateSpot = () => async (dispatch) => {
+//     const response = await csrfFetch('/api/spots/${spotId}')
+
+//     if (response.ok) {
+//         const payload = await response.json();
+        
+//         dispatch(createSpot(spot));
+//         return payload;
+//     }
+// };
+
+
+//edit a spot
+// export const fetchEditSpot = (payload) => async (dispatch) => {
+//     const response = await csrfFetch('/api/spots/${spotId}', {
+//         method: "PUT",
+//         headers: { 'Content-Type': 'application/json'},
+//         body: JSON.stringify(payload)
+//     })
+
+//     if (response.ok) {
+//         const spot = await response.json();
+        
+//         dispatch(editSpot(spot));
+//         return spot;
+//     }
+// };  
+
+
+    //delete spot
+export const fetchDeleteSpot = (spot) => async (dispatch) => {
+    const response = await csrfFetch('/api/spots/${spot}', {
+        method: 'DELETE'
+    })
+
+    if (response.ok) {
+        dispatch(deleteSpot(spot));
+    }    
+        return response;
 };  
 
 
@@ -104,6 +157,26 @@ const spotReducer = (state = initialState, action) => {
     case GET_SPOTS:
       newState = Object.assign({}, state);
       newState.spots = action.payload;
+      return newState;
+    case GET_SPOT_DETAILS:
+      newState = Object.assign({}, state);
+      newState.spots = action.payload;
+      return newState;
+    case MANAGE_SPOTS:
+      newState = Object.assign({}, state);
+      newState.spots = action.payload;
+      return newState;
+    // case CREATE_SPOT:
+    //   newState = Object.assign({}, state);
+    //   newState.spots = action.payload;
+    //   return newState;
+    // case UPDATE_SPOT:
+    //   newState = Object.assign({}, state);
+    //   newState.spots = action.payload;
+    //   return newState;
+    case DELETE_SPOT:
+      const deletedSpot = action.deleteSpot;
+      delete newState.userSpots[deletedSpot];
       return newState;
     
     default:
