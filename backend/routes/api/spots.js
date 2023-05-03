@@ -512,6 +512,8 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
 //Get all spots; add an average stars rating and
 // url to spotImage
 router.get('/', validateFilters, async (req, res, next) => {
+    console.log(">>>>>>>>>>>made it to the allspots route")
+    console.log(req, ">>>>>>>>>>>>>REQ<<<<<<<<<<<<")
     let {page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice} = req.query
     let errors = {};
 
@@ -592,10 +594,12 @@ router.get('/', validateFilters, async (req, res, next) => {
       
         offset: (page - 1) * size,
         limit: size,
+        
     });
+    console.log(">>>>>>>>>>>>>>>SENDING to allSpots thunk<<<<<<<<<<<")
 
     for ( let spot of spots ) {
-        console.log(spot.dataValues.SpotImages, "spot images")
+        // console.log(spot.dataValues.SpotImages, "spot images")
         if (!spot.dataValues.SpotImages.length) {
                 message = "This Spot does not have images.";
                 spot.dataValues.previewImage = message 

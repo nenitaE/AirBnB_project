@@ -69,6 +69,7 @@ const deleteSpot = (spot) => {
     //get all spots
 
 export const fetchSpots = () => async (dispatch) => {
+    console.log("in store /spots thunk")
     const response = await csrfFetch('/api/spots')
 
     if (response.ok) {
