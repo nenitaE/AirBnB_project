@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { Link, NavLink } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
-import { fetchSpots } from '../../../store/spots'
-import './Spots.css'
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchSpots } from '../../../store/spots';
+import './Spots.css';
 
 function AllSpots() {
     console.log("allSpots component")
-    const spots = useSelector(state => state.spots.spots);
+    const spots = useSelector(state => state.spots);
     const dispatch = useDispatch();
    
     console.log("allSpots component----before dispatching fetchSpots")
+    
     useEffect(() => {
         dispatch(fetchSpots())
     }, [dispatch]);
@@ -23,9 +23,9 @@ function AllSpots() {
         <div>
             <ul className='spots-list'>
                 {
-                allSpots.map(spot =>(
+                allSpots.map((spot) =>(
                     <Link to={`/spots/${spot.id}`} key={spot.id}>
-                        <img className='spot-images' src={spot.previewImage}/>
+                        <img className='spot-images' src={spot.previewImage} alt="spot images"/>
                     </Link>
                 ))}
             </ul>
