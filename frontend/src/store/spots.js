@@ -4,7 +4,7 @@ import { csrfFetch } from "./csrf";
     //get all spots
 const GET_SPOTS = 'spots/getSpots'
     //get one spot
-// const GET_SPOT_DETAILS = 'spots/getSpotDetails'
+const GET_SPOT_DETAILS = 'spots/getSpotDetails'
 //     //get details of users spots 
 // const MANAGE_SPOTS = 'spots/manageSpots'
 //     //add new spot
@@ -24,12 +24,12 @@ const getSpots = (spots) => {
 };
 
     //get one spot's details
-// const getSpotDetails = (spot) => {
-//     return {
-//       type: GET_SPOT_DETAILS,
-//       payload: spot,
-//     };
-// };
+const getSpotDetails = (spot) => {
+    return {
+      type: GET_SPOT_DETAILS,
+      payload: spot,
+    };
+};
 
     //get users spots
 // const manageSpots = (spots) => {
@@ -69,7 +69,7 @@ const getSpots = (spots) => {
     //get all spots
 
 export const fetchSpots = () => async (dispatch) => {
-    console.log("in store /spots thunk")
+    
     const response = await csrfFetch('/api/spots')
 
     if (response.ok) {
@@ -81,16 +81,17 @@ export const fetchSpots = () => async (dispatch) => {
 
 };  
     //get one spot
-// export const fetchSpotDetails = (spotId) => async (dispatch) => {
-//     const response = await csrfFetch('/api/spots/${spotId}')
+export const fetchSpotDetails = (spotId) => async (dispatch) => {
+    console.log("in store /spotDetails thunk")
+    const response = await csrfFetch(`/api/spots/${spotId}`)
 
-//     if (response.ok) {
-//         const payload = await response.json();
-        
-//         dispatch(getSpotDetails(payload));
-//         return payload;
-//     }
-// };  
+    if (response.ok) {
+        const payload = await response.json();
+        console.log(payload.spot, "In thunk action>>>SPOT DETAILS PAYLOAD<<<<<<<<<<<")
+        dispatch(getSpotDetails(payload.spot));
+        return payload;
+    }
+};  
 
 
     //get users spots
@@ -156,18 +157,19 @@ const spotReducer = (state = initialState, action) => {
   let newState = {};
   switch (action.type) {
     case GET_SPOTS:
-        console.log(action.payload, "PAYLOAD<<<<<<<<")
-        const allSpots = {};
+        // const allSpots = {};
         action.payload.forEach(spot => {
             // allSpots[spot.id] = spot;
             newState[spot.id] = spot;
         })
-      
         return newState;
-    // case GET_SPOT_DETAILS:
-    //   newState = Object.assign({}, state);
-    //   newState.spots = action.payload;
-    //   return newState;
+    case GET_SPOT_DETAILS:
+        console.log(action.payload, "in Reducer>>>>PAYLOAD<<<<<<<<")
+        // newState['spotDetails'] = action.payload.spot 
+        console.log(action.payload.id, "ACTION.ID")
+        console.log(action.payload, "ACTION.spot")
+        newState = {...state, [action.payload.id]: action.payload}
+        return newState;
     // case MANAGE_SPOTS:
     //   newState = Object.assign({}, state);
     //   newState.spots = action.payload;

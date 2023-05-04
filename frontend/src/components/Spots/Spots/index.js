@@ -20,15 +20,19 @@ function AllSpots() {
     const allSpots = Object.values(spots);
 
     return (
-        <div>
-            <ul className='spots-list'>
-                {
-                allSpots.map((spot) =>(
-                    <Link to={`/spots/${spot.id}`} key={spot.id}>
-                        <img className='spot-images' src={spot.previewImage} alt="spot images"/>
-                    </Link>
+        <div className='spots-container'>
+            <div>
+                { allSpots.map((spot) => (
+                    <div className='spot-grid' key={spot.id}>
+                        <Link to={`/spots/${spot.id}`}>
+                            <img className='spot-images' src={spot.previewImage} alt="spot images" width="320" height="240"/>
+                            <div className="spot-loc">{spot.city},{spot.state}</div>
+                            <div className="spot-price">${spot.price} night</div>
+                            <div className="spot-rating">{spot.avgStarRating ? spot.avgStarRating.toFixed(2) : 'New'}</div> 
+                        </Link>
+                    </div>
                 ))}
-            </ul>
+            </div>
         </div>
     )
 };
