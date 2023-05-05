@@ -5,19 +5,19 @@ import { fetchSpotDetails } from '../../../store/spots';
 import './SpotDetails.css';
 
 function SpotDetails () {
-    console.log("Inside Spot Details component>>>>>>>>>>>>>>")
+    // console.log("Inside Spot Details component>>>>>>>>>>>>>>")
     const {id} = useParams();
     const spotDetails = useSelector(state => state.spots[id]);
-    console.log(spotDetails, "SPOTDETAILS")
+    // console.log(spotDetails, "SPOTDETAILS")
     const dispatch = useDispatch();
     const reserveContainer = useRef(null);
 
-    console.log("SpotDetails component----before dispatching fetchSpotDetails")
+    // console.log("SpotDetails component----before dispatching fetchSpotDetails")
 
     useEffect(() => {
         dispatch(fetchSpotDetails(id))
     }, [dispatch, id]);
-    console.log("SpotDetails component----AFTER dispatching fetchSpotDetails")
+    // console.log("SpotDetails component----AFTER dispatching fetchSpotDetails")
     if (!spotDetails) return null;
 
     const {

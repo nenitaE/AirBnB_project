@@ -1,4 +1,4 @@
-form {
+form .login-form{
     max-width: 500px;
     margin: 0 auto;
     display: flex;
@@ -14,7 +14,7 @@ form {
     align-items: center;
 
 }
-label {
+label .login-form-inputs {
     font-size: medium;
     display: block;
     margin-bottom: 2px;
@@ -43,7 +43,7 @@ label {
     background-color: #fd5a5a;
 }
 
-input {
+input .login-form-inputs {
     width: 50 px;
     padding: 2px;
     margin-bottom: 10px;
@@ -73,9 +73,3 @@ input {
     background-color: #fd5a5a;
 }
 
-
-  
-  
-.login {
-    
-}

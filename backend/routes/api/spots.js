@@ -291,8 +291,8 @@ router.post('/:spotId/reviews', restoreUser, requireAuth, validateReview, async 
 
 // Create a Spot
 // Creates and returns a new spot.
-router.post('/', requireAuth, validateNewSpot, async (req, res, next) => {
-    //console.log(req.user.id)
+router.post('/', validateNewSpot, async (req, res, next) => {
+    console.log(">>>>>>>>>>>made it to the createSpot route");
     const {
         address,
         city,
@@ -512,8 +512,7 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
 //Get all spots; add an average stars rating and
 // url to spotImage
 router.get('/', validateFilters, async (req, res, next) => {
-    console.log(">>>>>>>>>>>made it to the allspots route")
-    console.log(req, ">>>>>>>>>>>>>REQ<<<<<<<<<<<<")
+    
     let {page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice} = req.query
     let errors = {};
 

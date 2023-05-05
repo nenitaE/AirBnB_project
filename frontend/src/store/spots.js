@@ -8,7 +8,7 @@ const GET_SPOT_DETAILS = 'spots/getSpotDetails'
 //     //get details of users spots 
 // const MANAGE_SPOTS = 'spots/manageSpots'
 //     //add new spot
-// const CREATE_SPOT = 'spots/createSpot'
+const CREATE_SPOT = 'spots/createSpot'
 //     //update an existing spot
 // const UPDATE_SPOT = 'spots/updateSpot'
 //     //delete a spot
@@ -40,12 +40,12 @@ const getSpotDetails = (spot) => {
 // };
 
     //add spot
-// const createSpot = (spot) => {
-//     return {
-//       type: CREATE_SPOT,
-//       payload: spot,
-//     };
-// };
+const createSpot = (newSpot) => {
+    return {
+      type: CREATE_SPOT,
+      payload: newSpot,
+    };
+};
 
     //updatea a spot
 // const updateSpot = (spot) => {
@@ -82,12 +82,12 @@ export const fetchSpots = () => async (dispatch) => {
 };  
     //get one spot
 export const fetchSpotDetails = (spotId) => async (dispatch) => {
-    console.log("in store /spotDetails thunk")
+    
     const response = await csrfFetch(`/api/spots/${spotId}`)
 
     if (response.ok) {
         const payload = await response.json();
-        console.log(payload.spot, "In thunk action>>>SPOT DETAILS PAYLOAD<<<<<<<<<<<")
+        
         dispatch(getSpotDetails(payload.spot));
         return payload;
     }
@@ -107,17 +107,36 @@ export const fetchSpotDetails = (spotId) => async (dispatch) => {
 // };  
 
 
-    //add spot
-// export const fetchCreateSpot = () => async (dispatch) => {
-//     const response = await csrfFetch('/api/spots/${spotId}')
+    //create spot
+export const fetchCreateSpot = (newSpot) => async (dispatch) => {
+    console.log("in store /createSpot thunk")
+    const {
+        address,
+        city,
+        state,
+        country,
+        lat,
+        lng,
+        name,
+        description,
+        price,
+        images
+        } = newSpot;
 
-//     if (response.ok) {
-//         const payload = await response.json();
-        
-//         dispatch(createSpot(spot));
-//         return payload;
-//     }
-// };
+
+    const response = await csrfFetch('/api/spots', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(newSpot)
+    })
+
+    if (response.ok) {
+        const newSpot = await response.json();
+        console.log(newSpot, "In thunk action>>>create spot newSpot<<<<<<<<<<<")
+        dispatch(createSpot(newSpot));
+        return newSpot;
+    }
+};
 
 
 //edit a spot
@@ -164,20 +183,18 @@ const spotReducer = (state = initialState, action) => {
         })
         return newState;
     case GET_SPOT_DETAILS:
-        console.log(action.payload, "in Reducer>>>>PAYLOAD<<<<<<<<")
-        // newState['spotDetails'] = action.payload.spot 
-        console.log(action.payload.id, "ACTION.ID")
-        console.log(action.payload, "ACTION.spot")
+        // console.log(action.payload.id, "ACTION.ID")
+        // console.log(action.payload, "ACTION.spot")
         newState = {...state, [action.payload.id]: action.payload}
         return newState;
     // case MANAGE_SPOTS:
     //   newState = Object.assign({}, state);
     //   newState.spots = action.payload;
     //   return newState;
-    // case CREATE_SPOT:
-    //   newState = Object.assign({}, state);
-    //   newState.spots = action.payload;
-    //   return newState;
+    case CREATE_SPOT:
+        console.log(action.payload, "in createSpot Reducer>>>>newSpot<<<<<<<<")
+        newState = {...state, [action.payload.id]: action.payload}
+        return newState;
     // case UPDATE_SPOT:
     //   newState = Object.assign({}, state);
     //   newState.spots = action.payload;
