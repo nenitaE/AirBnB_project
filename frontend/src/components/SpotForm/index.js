@@ -26,12 +26,13 @@ const SpotForm = ({ formType}) => {
     
     const dispatch = useDispatch();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
 
         e.preventDefault();
 
-        setErrors([])
-        let errorsArr = []
+        setErrors([]);
+        let errorsArr = [];
+
         if(!country.length){
             errorsArr.push('Country is required')
         }
@@ -69,8 +70,7 @@ const SpotForm = ({ formType}) => {
             return errors
         }
 
-        let spot = { 
-                
+        const spot = { 
                 address, 
                 city,
                 state,
@@ -83,135 +83,168 @@ const SpotForm = ({ formType}) => {
                 images: [imageA, imageB, imageC, imageD, imageE] 
             };
 
-        dispatch(fetchCreateSpot(spot))
-        console.log("SpotForm component----AFTER dispatching fetchCreateSpot")
-    
-        history.push(`/spots/${spot.id}`);
-    };
+        let newSpot = await dispatch(fetchCreateSpot(spot));
 
+        console.log("SpotForm component----AFTER dispatching fetchCreateSpot")
+
+        if (newSpot) {
+            let spotId = newSpot.id;
+            // dispatch(fetchSpotDetails(spotId));
+            history.push(`/spots/${newSpot.id}`);
+            
+        }
+        
+    };
+    
     return (
-        <form onSubmit={handleSubmit} >
-          <h2>{formType}</h2>
-          <label>
-            Country
-            <input 
-                type="text"
-                placeholder="country"
-                value={country}
-                onChange={e => setCountry(e.target.value)}
-            />
-          </label>
-          <label>
-            Address
-            <input 
-                type="text"
-                placeholder="address"
-                value={address}
-                onChange={e => setAddress(e.target.value)}
-            />
-          </label>
-          <label>
-            City
-            <input 
-                type="text" 
-                placeholder="city"
-                value={city}
-                onChange={e => setCity(e.target.value)}
-            />
-          </label>
-          <label>
-            State
-            <input 
-                type="text" 
-                placeholder="state"
-                value={state}
-                onChange={e => setState(e.target.value)}
-            />
-          </label>
-          <label>
-            Latitude
-            <input 
-                type="text"
-                value={lat}
-                onChange={e => setLat(e.target.value)}
-            />
-          </label>
-          <label>
-            Longitude
-            <input 
-                type="text"
-                placeholder="lng" 
-                value={lng}
-                onChange={e => setLng(e.target.value)}
-            />
-          </label>
-          <label>
-            Description
-            <textarea 
-                placeholder="description"
-                value={description}
-                onChange={e => setDescription(e.target.value)}
-            />
-          </label>
-          <label>
-            Title
-            <input 
-                type="text"
-                placeholder="name"
-                value={name}
-                onChange={e => setName(e.target.value)}
-            />
-          </label>
-          <label>
-            Price
-            <input 
-                type="number"
-                placeholder="price"
-                value={price}
-                onChange={e => setPrice(e.target.value)}
-            />
-          </label>
-          <label>
-            Photos
-            <input 
-                type="text"
-                placeholder="Preview Image URL"
-                value={imageA}
-                onChange={e => setImageA(e.target.value)}
-            />
-            <input 
-                type="text"
-                placeholder="Image URL"
-                value={imageB}
-                onChange={e => setImageB(e.target.value)}
-            />
-            <input 
-                type="text"
-                placeholder="Image URL"
-                value={imageC}
-                onChange={e => setImageC(e.target.value)}
-            />
-            <input 
-                type="text"
-                placeholder="Image URL"
-                value={imageC}
-                onChange={e => setImageC(e.target.value)}
-            />
-            <input 
-                type="text"
-                placeholder="Image URL"
-                value={imageD}
-                onChange={e => setImageD(e.target.value)}
-            />
-            <input 
-                type="text"
-                placeholder="Image URL"
-                value={imageE}
-                onChange={e => setImageE(e.target.value)}
-            />
-          </label>
-          <input type="submit" value={formType} />
-        </form>
+        <div className='create-spot-container'>
+            <h2>Create a New Spot</h2>
+                {errors.map(error => <div className='error-box' key={error}>{error}</div>)}
+                    <h3>Where's your place located?</h3>
+                        <p>Guests will only get your exact address once they have booked a reservation.</p>
+                            <form className ='create-spot-form' onSubmit={handleSubmit} >                           
+                                    <div className='country-div'>
+                                        <label>
+                                        Country
+                                        <input 
+                                            type="text"
+                                            placeholder="Country"
+                                            value={country}
+                                            onChange={e => setCountry(e.target.value)}
+                                        />
+                                    </label>
+                                    </div>
+                                    <div className='address-div'>
+                                    <label>
+                                        Street Address
+                                        <input 
+                                            type="text"
+                                            placeholder="Address"
+                                            value={address}
+                                            onChange={e => setAddress(e.target.value)}
+                                        />
+                                    </label>
+                                    </div>
+                                    <div className='city-div'>
+                                    <label>
+                                        City
+                                        <input 
+                                            type="text" 
+                                            placeholder="City"
+                                            value={city}
+                                            onChange={e => setCity(e.target.value)}
+                                        />
+                                    </label>
+                                    <p>, </p>
+                                    <label>
+                                        State
+                                        <input 
+                                            type="text" 
+                                            placeholder="State"
+                                            value={state}
+                                            onChange={e => setState(e.target.value)}
+                                        />
+                                    </label>
+                                    </div>
+                                    <div className='lat-lng-div'>
+                                    <label>
+                                        Latitude
+                                        <input 
+                                            type="text"
+                                            placeholder="Latiitude" 
+                                            value={lat}
+                                            onChange={e => setLat(e.target.value)}
+                                        />
+                                    </label>
+                                    <label>
+                                        Longitude
+                                        <input 
+                                            type="text"
+                                            placeholder="Longitude" 
+                                            value={lng}
+                                            onChange={e => setLng(e.target.value)}
+                                        />
+                                    </label>
+                                    </div>
+                                    <div className='description-div'>
+                                    <label>
+                                        <h3>Describe your place to guests</h3>
+                                        <p>Mention the best features of your space, any special amenitites like fast wifi or parking, and what you love about the neighborhood.</p>
+                                        <textarea 
+                                            placeholder="Description"
+                                            value={description}
+                                            onChange={e => setDescription(e.target.value)}
+                                        />
+                                    </label>
+                                    </div>
+                                    <div className='spot-title-div'>
+                                    <label>
+                                        <h3>Create a title for your spot</h3>
+                                        <input 
+                                            type="text"
+                                            placeholder="Name of your spot"
+                                            value={name}
+                                            onChange={e => setName(e.target.value)}
+                                        />
+                                    </label>
+                                    </div>
+                                    <div className='spot-price-div'>
+                                    <label>
+                                        <h3>Set a base price for your spot</h3>
+                                        <p>Competitive pricing can help your listing stand out and rank higher in search results.</p>
+                                        &#36; <input 
+                                            type="number"
+                                            placeholder="Price per night (USD)"
+                                            value={price}
+                                            onChange={e => setPrice(e.target.value)}
+                                        />
+                                    </label>
+                                    </div>
+                                    <div className='spot-photos-div'>
+                                    <label>
+                                        <h3>Liven up your spot with photos</h3>
+                                        <p>Submit a link to at least one photo to publish your spot.</p>
+                                        <input 
+                                            type="text"
+                                            placeholder="Preview Image URL"
+                                            value={imageA}
+                                            onChange={e => setImageA(e.target.value)}
+                                        />
+                                        <input 
+                                            type="text"
+                                            placeholder="Image URL"
+                                            value={imageB}
+                                            onChange={e => setImageB(e.target.value)}
+                                        />
+                                        <input 
+                                            type="text"
+                                            placeholder="Image URL"
+                                            value={imageC}
+                                            onChange={e => setImageC(e.target.value)}
+                                        />
+                                        <input 
+                                            type="text"
+                                            placeholder="Image URL"
+                                            value={imageC}
+                                            onChange={e => setImageC(e.target.value)}
+                                        />
+                                        <input 
+                                            type="text"
+                                            placeholder="Image URL"
+                                            value={imageD}
+                                            onChange={e => setImageD(e.target.value)}
+                                        />
+                                        <input 
+                                            type="text"
+                                            placeholder="Image URL"
+                                            value={imageE}
+                                            onChange={e => setImageE(e.target.value)}
+                                        />
+                                    </label>
+                                    </div>
+                            <input type="submit" value={formType} />
+                            </form>
+                    </div>
       );
 
 
