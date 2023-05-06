@@ -1,18 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSpots } from '../../../store/spots';
 import './Spots.css';
 
 function AllSpots() {
-    console.log("allSpots component")
-    const spots = useSelector(state => state.spots);
+    
+    
     const dispatch = useDispatch();
-   
-    console.log("allSpots component----before dispatching fetchSpots")
+    const [isLoaded, setIsLoaded] =useState(false)
+    const spots = useSelector(state => state.spots);
     
     useEffect(() => {
-        dispatch(fetchSpots())
+        dispatch(fetchSpots()).then(() => setIsLoaded(true))
     }, [dispatch]);
 
     if (!spots) return null;
@@ -21,7 +21,6 @@ function AllSpots() {
 
     return (
         <div className='spots-container'>
-            <div>
                 { allSpots.map((spot) => (
                     <div className='spot-grid' key={spot.id}>
                         <Link to={`/spots/${spot.id}`}>
@@ -33,7 +32,6 @@ function AllSpots() {
                     </div>
                 ))}
             </div>
-        </div>
     )
 };
     

@@ -1,13 +1,9 @@
 .spots-container {
     display: flex;
-    width: 90%;
-    margin: 0 auto;
     flex-wrap: wrap;
 }
 
 .spot-grid {
-   display: block;
-   flex-basis: 100%;
 }
 
 .spot-images {
@@ -29,6 +25,7 @@
         flex-basis: 25%;
     }
 }
+
 
 
 
