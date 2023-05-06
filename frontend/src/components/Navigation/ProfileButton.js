@@ -44,7 +44,7 @@ function ProfileButton({ user }) {
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
   return (
-    <>
+    <div>
       <button id="profile" onClick={openMenu}>
         <i className="fas fa-user-circle" />
       </button>
@@ -55,7 +55,7 @@ function ProfileButton({ user }) {
             <li>{user.firstName} {user.lastName}</li>
             <li>{user.email}</li>
             <li>
-              <button onClick={logout}>Log Out</button>
+              <button className="logout-btn" onClick={logout}>Log Out</button>
             </li>
           </>
         ) : (
@@ -73,7 +73,7 @@ function ProfileButton({ user }) {
           </>
         )}
       </ul>
-    </>
+    </div>
   );
 }
 

@@ -7,14 +7,7 @@
     list-style-type: none;
 }
 
-.nav-ul {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    list-style: none;
-    padding: 10px;
-    margin-bottom: 10px;
-}
+
 
 .home-btn {
     margin-top: 2px;
@@ -51,6 +44,9 @@
     
 }
 
+.logout-btn {
+    
+}
 #profile {
     background: none;
     padding: 0;

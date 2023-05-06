@@ -1,4 +1,3 @@
-// import { nanoid } from 'nanoid';
 import SpotForm from "../SpotForm";
 
 const CreateSpotForm = () => {

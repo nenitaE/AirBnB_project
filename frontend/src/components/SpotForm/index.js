@@ -82,16 +82,16 @@ const SpotForm = ({ formType}) => {
                 price,
                 images: [imageA, imageB, imageC, imageD, imageE] 
             };
-
+        
         let newSpot = await dispatch(fetchCreateSpot(spot));
-
+        console.log(newSpot, "newSpot details in SpotForm component----AFTER dispatching fetchCreateSpot")
         console.log("SpotForm component----AFTER dispatching fetchCreateSpot")
 
         if (newSpot) {
             let spotId = newSpot.id;
-            // dispatch(fetchSpotDetails(spotId));
-            history.push(`/spots/${newSpot.id}`);
             
+            history.push(`/spots/${newSpot.id}`);
+            dispatch(fetchSpotDetails(spotId));
         }
         
     };

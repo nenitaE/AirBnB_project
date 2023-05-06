@@ -6,6 +6,7 @@ import Navigation from "./components/Navigation";
 import Spots from "./components/Spots/Spots";
 import SpotDetails from "./components/Spots/SpotDetails";
 import CreateSpotForm from "./components/CreateSpotForm";
+import CurrentUserSpots from './components/CurrentUserSpots'
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
       {isLoaded && (
         <Switch>
           <Route exact path='/' component={Spots} />
+          <Route exact path='/spots/current' component={CurrentUserSpots} />
           <Route path="/spots/new" component={CreateSpotForm} />
           <Route exact path='/spots/:id'component={SpotDetails} />
           

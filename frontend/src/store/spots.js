@@ -6,13 +6,13 @@ const GET_SPOTS = 'spots/getSpots'
     //get one spot
 const GET_SPOT_DETAILS = 'spots/getSpotDetails'
 //     //get details of users spots 
-// const MANAGE_SPOTS = 'spots/manageSpots'
+const MANAGE_SPOTS = 'spots/manageSpots'
 //     //add new spot
 const CREATE_SPOT = 'spots/createSpot'
 //     //update an existing spot
 // const UPDATE_SPOT = 'spots/updateSpot'
 //     //delete a spot
-// const DELETE_SPOT = 'spots/deleteSpot'
+const DELETE_SPOT = 'spots/deleteSpot'
 
 //SPOTS ACTION CREATORS
     //get all spots
@@ -32,12 +32,12 @@ const getSpotDetails = (spot) => {
 };
 
     //get users spots
-// const manageSpots = (spots) => {
-//     return {
-//       type: MANAGE_SPOTS,
-//       payload: spots,
-//     };
-// };
+const manageSpots = (spots) => {
+    return {
+      type: MANAGE_SPOTS,
+      payload: spots,
+    };
+};
 
     //add spot
 const createSpot = (newSpot) => {
@@ -56,12 +56,12 @@ const createSpot = (newSpot) => {
 // };
 
     //delete spot
-// const deleteSpot = (spot) => {
-//     return {
-//       type: DELETE_SPOT,
-//       payload: spot,
-//     };
-// };
+const deleteSpot = (spot) => {
+    return {
+      type: DELETE_SPOT,
+      payload: spot,
+    };
+};
   
 
 //SPOTS THUNK ACTIONS
@@ -95,16 +95,20 @@ export const fetchSpotDetails = (spotId) => async (dispatch) => {
 
 
     //get users spots
-// export const fetchmanageSpots = () => async (dispatch) => {
-//     const response = await csrfFetch('/api/spots/current')
+export const fetchManageSpots = (user) => async (dispatch) => {
+    const response = await csrfFetch('/api/spots');
+    const details = await response.json();
 
-//     if (response.ok) {
-//         const payload = await response.json();
-        
-//         dispatch(manageSpots(payload));
-//         return payload;
-//     }
-// };  
+    if (response.ok) {
+    let filteredSpots = Object.values(details);
+    const ownerSpots = filteredSpots.filter(spot => spot.ownerId === user.user.id);
+    
+    let ownerSpotsObj = {};
+
+    ownerSpots.map(spot => ownerSpotsObj[spot.id] = spot);
+    return dispatch(fetchSpots(ownerSpotsObj));
+    }
+};  
 
 
     //create spot
@@ -157,16 +161,15 @@ export const fetchCreateSpot = (newSpot) => async (dispatch) => {
 
 
     //delete spot
-// export const fetchDeleteSpot = (spot) => async (dispatch) => {
-//     const response = await csrfFetch('/api/spots/${spot}', {
-//         method: 'DELETE'
-//     })
-
-//     if (response.ok) {
-//         dispatch(deleteSpot(spot));
-//     }    
-//         return response;
-// };  
+export const fetchDeleteSpot = (spot) => async (dispatch) => {
+    const response = await csrfFetch('/api/spots/${spot.id}', {
+        method: 'DELETE'
+    })
+    const details = await response.json();
+    if (response.ok) {
+        dispatch(deleteSpot(details));
+    }    
+};  
 
 
 //SESSION REDUCER
@@ -187,10 +190,10 @@ const spotReducer = (state = initialState, action) => {
         // console.log(action.payload, "ACTION.spot")
         newState = {...state, [action.payload.id]: action.payload}
         return newState;
-    // case MANAGE_SPOTS:
-    //   newState = Object.assign({}, state);
-    //   newState.spots = action.payload;
-    //   return newState;
+    case MANAGE_SPOTS:
+        newState = Object.assign({}, state);
+        newState.spots = action.payload;
+        return newState;
     case CREATE_SPOT:
         console.log(action.payload, "in createSpot Reducer>>>>newSpot<<<<<<<<")
         newState = {...state, [action.payload.id]: action.payload}
@@ -199,10 +202,12 @@ const spotReducer = (state = initialState, action) => {
     //   newState = Object.assign({}, state);
     //   newState.spots = action.payload;
     //   return newState;
-    // case DELETE_SPOT:
+    case DELETE_SPOT:
     //   const deletedSpot = action.deleteSpot;
     //   delete newState.userSpots[deletedSpot];
-    //   return newState;
+        newState = {...state};
+        delete newState[action.spot.id]
+        return newState;
     
     default:
       return state;
