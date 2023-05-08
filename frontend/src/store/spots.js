@@ -162,7 +162,7 @@ export const fetchCreateSpot = (newSpot) => async (dispatch) => {
 
     //delete spot
 export const fetchDeleteSpot = (spot) => async (dispatch) => {
-    const response = await csrfFetch('/api/spots/${spot.id}', {
+    const response = await csrfFetch(`/api/spots/${spot.id}`, {
         method: 'DELETE'
     })
     const details = await response.json();
@@ -206,7 +206,7 @@ const spotReducer = (state = initialState, action) => {
     //   const deletedSpot = action.deleteSpot;
     //   delete newState.userSpots[deletedSpot];
         newState = {...state};
-        delete newState[action.spot.id]
+        delete newState[action.payload.id]
         return newState;
     
     default:
