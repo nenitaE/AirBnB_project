@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { fetchCreateSpot, fetchSpotDetails } from '../../store/spots';
 import './SpotForm.css';
 
-const SpotForm = ({ formType}) => {
+const SpotForm = ({ spot, formType}) => {
     console.log("Inside SpotForm component>>>>>>>>>>>>>>")
     
     const history = useHistory();
@@ -70,7 +70,7 @@ const SpotForm = ({ formType}) => {
             return errors
         }
 
-        const spot = { 
+        spot = { 
                 address, 
                 city,
                 state,
@@ -98,7 +98,7 @@ const SpotForm = ({ formType}) => {
     
     return (
         <div className='create-spot-container'>
-            <h2>Create a New Spot</h2>
+            <h2>{formType}</h2>
                 {errors.map(error => <div className='error-box' key={error}>{error}</div>)}
                     <h3>Where's your place located?</h3>
                         <p>Guests will only get your exact address once they have booked a reservation.</p>

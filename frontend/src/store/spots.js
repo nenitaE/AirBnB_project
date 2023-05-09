@@ -5,14 +5,17 @@ import { csrfFetch } from "./csrf";
 const GET_SPOTS = 'spots/getSpots'
     //get one spot
 const GET_SPOT_DETAILS = 'spots/getSpotDetails'
-//     //get details of users spots 
+     //get details of users spots 
 const MANAGE_SPOTS = 'spots/manageSpots'
-//     //add new spot
+     //add new spot
 const CREATE_SPOT = 'spots/createSpot'
-//     //update an existing spot
-// const UPDATE_SPOT = 'spots/updateSpot'
-//     //delete a spot
+     //update an existing spot
+const UPDATE_SPOT = 'spots/updateSpot'
+    //delete a spot
 const DELETE_SPOT = 'spots/deleteSpot'
+    //add preview image 
+const ADD_IMAGE = 'spots/deleteSpot'
+
 
 //SPOTS ACTION CREATORS
     //get all spots
@@ -48,18 +51,25 @@ const createSpot = (newSpot) => {
 };
 
     //updatea a spot
-// const updateSpot = (spot) => {
-//     return {
-//       type: UPDATE_SPOT,
-//       payload: spot,
-//     };
-// };
+const updateSpot = (spot) => {
+    return {
+      type: UPDATE_SPOT,
+      payload: spot,
+    };
+};
 
     //delete spot
 const deleteSpot = (spot) => {
     return {
       type: DELETE_SPOT,
       payload: spot,
+    };
+};
+    //add preview image
+const addImage = (spotId, image) => {
+    return {
+      type: ADD_IMAGE,
+      payload: {spotId, image}
     };
 };
   
@@ -82,11 +92,12 @@ export const fetchSpots = () => async (dispatch) => {
 };  
     //get one spot
 export const fetchSpotDetails = (spotId) => async (dispatch) => {
-    
+    console.log("in store /spotDetails thunk")
     const response = await csrfFetch(`/api/spots/${spotId}`)
 
     if (response.ok) {
         const payload = await response.json();
+        console.log(payload.spot, "In thunk action>>>SPOT DETAILS PAYLOAD<<<<<<<<<<<")
         
         dispatch(getSpotDetails(payload.spot));
         return payload;
@@ -143,21 +154,34 @@ export const fetchCreateSpot = (newSpot) => async (dispatch) => {
 };
 
 
-//edit a spot
-// export const fetchEditSpot = (payload) => async (dispatch) => {
-//     const response = await csrfFetch('/api/spots/${spotId}', {
-//         method: "PUT",
-//         headers: { 'Content-Type': 'application/json'},
-//         body: JSON.stringify(payload)
-//     })
+//update a spot thunk action
+export const fetchEditSpot = (spot) => async (dispatch) => {
+    const {
+        address,
+        city,
+        state,
+        country,
+        lat,
+        lng,
+        name,
+        description,
+        price,
+        images
+        } = spot;
 
-//     if (response.ok) {
-//         const spot = await response.json();
+    const response = await csrfFetch(`/api/spots/${spot.id}`, {
+        method: "PUT",
+        headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify(spot)
+    })
+
+    if (response.ok) {
+        const updatedSpot = await response.json();
         
-//         dispatch(editSpot(spot));
-//         return spot;
-//     }
-// };  
+        dispatch(updateSpot(updatedSpot));
+        return updatedSpot;
+    }
+};  
 
 
     //delete spot
@@ -179,15 +203,11 @@ const spotReducer = (state = initialState, action) => {
   let newState = {};
   switch (action.type) {
     case GET_SPOTS:
-        // const allSpots = {};
         action.payload.forEach(spot => {
-            // allSpots[spot.id] = spot;
             newState[spot.id] = spot;
         })
         return newState;
     case GET_SPOT_DETAILS:
-        // console.log(action.payload.id, "ACTION.ID")
-        // console.log(action.payload, "ACTION.spot")
         newState = {...state, [action.payload.id]: action.payload}
         return newState;
     case MANAGE_SPOTS:
@@ -198,13 +218,13 @@ const spotReducer = (state = initialState, action) => {
         console.log(action.payload, "in createSpot Reducer>>>>newSpot<<<<<<<<")
         newState = {...state, [action.payload.id]: action.payload}
         return newState;
-    // case UPDATE_SPOT:
-    //   newState = Object.assign({}, state);
-    //   newState.spots = action.payload;
-    //   return newState;
+    case UPDATE_SPOT:
+        newState = {...state, [action.payload.id]: {...state, ...action.spot}};
+        return newState;
+    case ADD_IMAGE:
+        newState = {...state, [action.payload.id]: {...state, [action.payload.spotId.SpotImages]: action.payload.image}};
+        return newState;
     case DELETE_SPOT:
-    //   const deletedSpot = action.deleteSpot;
-    //   delete newState.userSpots[deletedSpot];
         newState = {...state};
         delete newState[action.payload.id]
         return newState;
