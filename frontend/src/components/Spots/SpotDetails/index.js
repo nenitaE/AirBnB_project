@@ -32,13 +32,18 @@ function SpotDetails () {
     console.log("SpotDetails component----AFTER dispatching fetchSpotDetails")
 
     let reviewsArr = [];
-    
-    const spotReviews = reviews.map(review => review.spotId === Number(id));
+    // let currUserReviews = true;
+    // let currUserIsOwner = true;
+    // const spotReviews = reviews.filter(review => review.spotId === Number(spotId));
     
     if(user) {
-        reviewsArr = reviews.map(review => review.userId === user.id)
+        // reviewsArr = reviews.filter(review => review.userId === user.id)
+        // if (!reviewsArr.length) currUserReviews = false;
+        // if (user.id != spotDetails.ownerId) currUserIsOwner = false;
+        // console.log(currUserIsOwner, "currUserIsOwner??")
     }
-    console.log(spotReviews, "spotReviews in SpotDetails component----AFTER dispatching fetchreviews")
+    
+    console.log(reviewsArr, "reviewsArr in SpotDetails component----AFTER dispatching fetchreviews")
 
 
 
@@ -87,7 +92,10 @@ function SpotDetails () {
                                     </div>
                                 </div>
                                 <div className='spot-reviews-container'>
-                                <button className='review-button' onClick={() => alert('Feature Coming Soon...')}>Post Your Review</button>
+                               
+                               
+
+                               
 
                                 </div>
                             </div>         
