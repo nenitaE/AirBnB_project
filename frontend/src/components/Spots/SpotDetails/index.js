@@ -3,6 +3,8 @@ import * as spotActions from "../../../store/spots";
 import * as reviewActions from "../../../store/reviews";
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import OpenModalMenuItem from '../../Navigation/OpenModalMenuItem';
+import CreateReviewModal from '../../CreateReviewModal';
 import './SpotDetails.css';
 
 function SpotDetails () {
@@ -10,8 +12,9 @@ function SpotDetails () {
 
     
     const [isLoaded, setIsLoaded] = useState(false);
+    const [showMenu, setShowMenu] = useState(false);
     const {id} = useParams();
-    
+    const closeMenu = () => setShowMenu(false);
     const spotDetails = useSelector(state => state.spots[id]);
     console.log(spotDetails, "SPOTDETAILS")
     
@@ -27,8 +30,11 @@ function SpotDetails () {
     console.log("SpotDetails component----before dispatching fetchSpotDetails & fetchReviews")
 
     useEffect(() => {
-        dispatch(spotActions.fetchSpotDetails(id)).then(dispatch(reviewActions.fetchReviews(id))).then(() => setIsLoaded(true))
+        dispatch(spotActions.fetchSpotDetails(id))
+        .then(dispatch(reviewActions.fetchReviews(id)))
+        .then(() => setIsLoaded(true))
     }, [dispatch, id]);
+
     console.log("SpotDetails component----AFTER dispatching fetchSpotDetails")
 
     let reviewsArr = [];
@@ -71,7 +77,7 @@ function SpotDetails () {
                                 {city}, {state}, {country}
                             </div> 
                             <div className='spot-details-images'>
-                            {spotDetails.SpotImages.map(previewImage => <img src= {previewImage.url} key={previewImage.id} alt={previewImage.id} width="320" height="240" />)}
+                                {spotDetails.SpotImages.map(previewImage => <img src= {previewImage.url} key={previewImage.id} alt={previewImage.id} width="320" height="240" />)}
                             </div>
                                 <div className='spot-info-container'>
                                     <div className='spot-container-text'>
@@ -84,22 +90,23 @@ function SpotDetails () {
                                                 <div className='stars'>
                                                     <p>&#x2605; {avgStarRating.toFixed(1)} &#x2022;  {numReviews} reviews</p>
                                                 </div>
-                                                
                                             </h3>
                                         </div>
                                         <div>
                                             <button className='res-button' onClick={() => alert('Feature Coming Soon...')}>RESERVE</button>
+                                        </div>
                                     </div>
                                 </div>
-                                <div className='spot-reviews-container'>
-                               
-                               
-
-                               
-
-                                </div>
-                            </div>         
-                    </div>
+                                    <div className='spot-reviews-container'>  
+                                        <button className="review-btn">
+                                            <OpenModalMenuItem
+                                                itemText="Post Your Review"
+                                                onItemClick={closeMenu}
+                                                modalComponent={<CreateReviewModal />}
+                                            />
+                                        </button>
+                                    </div>        
+                        </div>
                 </div>
             </div>)}
         </div>

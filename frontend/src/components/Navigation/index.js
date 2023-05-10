@@ -1,14 +1,15 @@
 // frontend/src/components/Navigation/index.js
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
 import logoimg from './images/flairbnb_logo2.png'
 
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
-
+  const dispatch = useDispatch()
+  
   return (
     <div id='nav-container'>
         <div className='home-btn'>
