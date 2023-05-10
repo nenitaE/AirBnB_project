@@ -53,18 +53,23 @@ export const fetchReviews = (spotId) => async (dispatch) => {
 }; 
     //add review
 
-export const fetchAddReview = (reviewData) => async (dispatch) => {
-    let {spotId, review, stars} =reviewData;
-    spotId = Number(spotId.spotId);
-
+export const fetchAddReview = (newReview) => async (dispatch) => {
+    console.log("<<<<<<<<<<<<<<<<<<inside add Review thunk")
+    
+    let {spotId, review, stars} =newReview;
+    spotId = Number(spotId);
+    console.log(spotId, "  spotID>>>>>>>>>>>>>>")
     const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
         method: 'POST',
-        body: JSON.stringify({review, stars})
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(newReview)
     });
     
     if (response.ok) {
-        const data = await response.json();
-        dispatch(addReview(data));
+        const submittedReview = await response.json();
+        console.log(submittedReview, "In thunk action>>>create newReview<<<<<<<<<<<");
+        dispatch(addReview(submittedReview));
+        return submittedReview;
     } 
 }; 
     //delete review

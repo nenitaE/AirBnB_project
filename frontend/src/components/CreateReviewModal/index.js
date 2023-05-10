@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import './CreateReview.css'
 
-function CreateReviewModal(spotId) {
+function CreateReviewModal({spotId}) {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
 
@@ -21,20 +21,21 @@ function CreateReviewModal(spotId) {
   }
 
   const handleSubmit = (e) => {
+    console.log("<<<<<<<<<<In CreateReviewModal handle submit")
     e.preventDefault();
     
     const data = { 
       spotId,
       review,
       stars      
-    }
+    };
 
     const errors = {};
-    if (stars === '' || review.length < 10 ) {
-      setErrors(errors);
-      errors.errMessage = 'Star rating and a minimum of 10 characters are required to review this spot.'
-      return
-    }
+    // if (stars === '' || review.length < 10 ) {
+    //   setErrors(errors);
+    //   errors.errMessage = 'Star rating and a minimum of 10 characters are required to review this spot.'
+    //   return
+    // }
   
     return dispatch(reviewActions.fetchAddReview(data))
         .then(dispatch(reviewActions.fetchReviews(spotId)))
