@@ -393,7 +393,7 @@ router.get('/:spotId', async (req, res) => {
         }
         spot.dataValues.avgStarRating = sum / spot.dataValues.Reviews.length;
     } else {
-        spot.dataValues.avgStarRating = "This spot has not been rated";
+        spot.dataValues.avgStarRating = 0;
     } 
     if (!spot.dataValues.SpotImages.length) {
         message = "This Spot does not have images.";

@@ -102,39 +102,154 @@ module.exports = {
       },
       {
         spotId: 7,
-        url: '',
+        url: 'https://www.rentalescapes.com/images/properties/125347/original/125347_1631804372796386_original.jpg',
         preview: true
       },
       {
         spotId: 7,
-        url: '',
+        url: 'https://www.rentalescapes.com/images/properties/125347/original/125347_1631804296070126_original.jpg',
+        preview: false
+      },
+      {
+        spotId: 7,
+        url: 'https://www.rentalescapes.com/images/properties/125347/original/125347_1631804095697025_original.jpg',
+        preview: false
+      },
+      {
+        spotId: 7,
+        url: 'https://www.rentalescapes.com/images/properties/125347/original/125347_1631804210482877_original.jpg',
+        preview: false
+      },
+      {
+        spotId: 7,
+        url: 'https://www.rentalescapes.com/images/properties/125347/original/125347_1631803980480051_original.jpg',
         preview: false
       },
       {
         spotId: 8,
-        url: '',
+        url: 'https://a0.muscache.com/im/pictures/8843cfd2-0a51-457b-88ef-5581a50f5499.jpg?im_w=1440',
+        preview: true
+      },
+      {
+        spotId: 8,
+        url: 'https://a0.muscache.com/im/pictures/8edafcb6-82d9-47de-a43f-22fd9a374d6c.jpg?im_w=1440',
+        preview: false
+      },
+      {
+        spotId: 8,
+        url: 'https://a0.muscache.com/im/pictures/b2336467-2156-4888-a113-ea7a1a2f978e.jpg?im_w=1440',
+        preview: false
+      },
+      {
+        spotId: 8,
+        url: 'https://a0.muscache.com/im/pictures/72301440-16d3-4ef0-8ca5-b3c065afc46c.jpg?im_w=720',
+        preview: false
+      },
+      {
+        spotId: 8,
+        url: 'https://a0.muscache.com/im/pictures/aa1de7b7-44b3-48ee-afb3-9dbd4cb20f94.jpg?im_w=1440',
+        preview: false
+      },
+      {
+        spotId: 9,
+        url: 'https://a0.muscache.com/im/pictures/84ecc291-3934-4820-b1b4-a6b158d5f709.jpg?im_w=1200',
         preview: true
       },
       {
         spotId: 9,
-        url: '',
+        url: 'https://a0.muscache.com/im/pictures/90c192d2-bc2c-426d-93e4-afc2cdb7c249.jpg?im_w=1440',
+        preview: false
+      },
+      {
+        spotId: 9,
+        url: 'https://a0.muscache.com/im/pictures/07d55f69-b229-4110-bfed-157fc1099999.jpg?im_w=1440',
+        preview: false
+      },
+      {
+        spotId: 9,
+        url: 'https://a0.muscache.com/im/pictures/37e83ede-25eb-4682-aa63-4715fbdb9f82.jpg?im_w=1440',
+        preview: false
+      },
+      {
+        spotId: 9,
+        url: 'https://a0.muscache.com/im/pictures/a7a1506c-fcc0-4c5f-9980-38a6cc87074b.jpg?im_w=1440',
+        preview: false
+      },
+      {
+        spotId: 10,
+        url: 'https://a0.muscache.com/im/pictures/miso/Hosting-45945949/original/d013c43e-904c-49a9-9dd8-92a9e090124f.jpeg?im_w=1200',
         preview: true
       },
       {
         spotId: 10,
-        url: '',
+        url: 'https://a0.muscache.com/im/pictures/miso/Hosting-45945949/original/0b68a28b-db3f-4677-bdb1-8d37a12c99e3.jpeg?im_w=1440',
+        preview: false
+      },
+      {
+        spotId: 10,
+        url: 'https://a0.muscache.com/im/pictures/miso/Hosting-45945949/original/7f056fa6-174a-47bd-9412-d1e2d4971a61.jpeg?im_w=1440',
+        preview: false
+      },
+      {
+        spotId: 10,
+        url: 'https://a0.muscache.com/im/pictures/miso/Hosting-45945949/original/2e5b1643-e9bb-4a2c-b692-5af9c72c9261.jpeg?im_w=1440',
+        preview: false
+      },
+      {
+        spotId: 10,
+        url: 'https://a0.muscache.com/im/pictures/miso/Hosting-45945949/original/3c87a8ee-ee54-4693-900f-e5b030174202.jpeg?im_w=1440',
+        preview: false
+      },
+      {
+        spotId: 11,
+        url: 'https://a0.muscache.com/im/pictures/94fbe801-b1ec-4faf-af6f-72f7d972b873.jpg?im_w=1440',
         preview: true
       },
       {
         spotId: 11,
-        url: '',
+        url: 'https://a0.muscache.com/im/pictures/miso/Hosting-562915491810130929/original/c17c67cf-96cd-452c-ba88-c3852ddeea27.jpeg?im_w=1440',
+        preview: false
+      },
+      {
+        spotId: 11,
+        url: 'https://a0.muscache.com/im/pictures/miso/Hosting-562915491810130929/original/461545b7-f7d3-4ffe-8968-88b8b4748827.jpeg?im_w=1440',
+        preview: false
+      },
+      {
+        spotId: 11,
+        url: 'https://a0.muscache.com/im/pictures/f7f6550d-fcff-43d4-9198-81b0df3865c4.jpg?im_w=1440',
+        preview: false
+      },
+      {
+        spotId: 11,
+        url: 'https://a0.muscache.com/im/pictures/b086a621-702f-4eb6-b893-48ef8c551c08.jpg?im_w=1440',
+        preview: false
+      },
+      {
+        spotId: 12,
+        url: 'https://a0.muscache.com/im/pictures/miso/Hosting-633162076506488935/original/98935927-6283-4dc5-829c-987e2af4e96c.jpeg?im_w=1200',
         preview: true
       },
       {
         spotId: 12,
-        url: '',
-        preview: true
+        url: 'https://a0.muscache.com/im/pictures/miso/Hosting-633162076506488935/original/4c560f8c-9f05-44d0-a067-a386d2864cde.jpeg?im_w=1440',
+        preview: false
       },
+      {
+        spotId: 12,
+        url: 'https://a0.muscache.com/im/pictures/miso/Hosting-633162076506488935/original/3bf7ab1c-f331-4803-814e-c573f66cc85d.jpeg?im_w=1440',
+        preview: false
+      },
+      {
+        spotId: 12,
+        url: 'https://a0.muscache.com/im/pictures/miso/Hosting-633162076506488935/original/788e091c-43db-4741-89b4-226d8a6284fb.jpeg?im_w=1440',
+        preview: false
+      },
+      {
+        spotId: 12,
+        url: 'https://a0.muscache.com/im/pictures/miso/Hosting-633162076506488935/original/cff7041f-5268-4291-94b5-f03ccdc760e9.jpeg?im_w=1440',
+        preview: false
+      }
     ], {});
   },
 
@@ -142,7 +257,7 @@ module.exports = {
     options.tableName = 'SpotImages';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      spotId: { [Op.in]: ['1', '2', '3'] }
+      spotId: { [Op.in]: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] }
     }, {});
   }
 };
