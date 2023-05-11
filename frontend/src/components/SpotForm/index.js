@@ -18,10 +18,10 @@ const SpotForm = ({ spot, formType}) => {
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
     const [previewImage, setPreviewImage] = useState('');
-    const [imageA, setImageA] = useState('');
-    const [imageB, setImageB] = useState('');
-    const [imageC, setImageC] = useState('');
-    const [imageD, setImageD] = useState('');
+    const [img1, setImg1] = useState('');
+    const [img2, setImg2] = useState('');
+    const [img3, setImg3] = useState('');
+    const [img4, setImg4] = useState('');
     const [validationErrors, setValidationErrors] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false);
     
@@ -38,10 +38,17 @@ const SpotForm = ({ spot, formType}) => {
     const updateName = (e) => setName(e.target.value);
     const updatePrice = (e) => setPrice(e.target.value);
     const updatePreviewImage = (e) => setPreviewImage(e.target.value);
-    const updateImgA = (e) => setImageA(e.target.value);
-    const updateImgB = (e) => setImageB(e.target.value);
-    const updateImgC = (e) => setImageC(e.target.value);
-    const updateImgD = (e) => setImageD(e.target.value);
+    const updateImg1 = (e) => setImg1(e.target.value);
+    const updateImg2 = (e) => setImg2(e.target.value);
+    const updateImg3 = (e) => setImg3(e.target.value);
+    const updateImg4 = (e) => setImg4(e.target.value);
+
+    //url validation
+    // const validImage = ["png", "jpg", "jpeg"];
+    // const checkUrl = (url) => {
+    //     const end = url.split(".").pop().toLowerCase();
+    //     return validImage.includes(end);
+    //   };
 
     useEffect(() => {
         const errors = [];
@@ -59,16 +66,17 @@ const SpotForm = ({ spot, formType}) => {
     }, [country, city, address, state, lat, lng, description, name, price, previewImage])
 
     const handleSubmit = async (e) => {
-
+        console.log("Inside Handle SUbmit...SpotForm component>>>>>>>>>>>>>>")
+    
         e.preventDefault();
         setHasSubmitted(true);
-        const imagesArr = [previewImage, imageA, imageB, imageC, imageD]
+        const imagesArr = [previewImage, img1, img2, img3, img4];
 
-        const spot = { 
+        const spot = {
+                country,
                 address, 
                 city,
-                state,
-                country,
+                state,                
                 lat,
                 lng,
                 name,
@@ -78,13 +86,12 @@ const SpotForm = ({ spot, formType}) => {
             };
         
         let newSpot = await dispatch(fetchCreateSpot(spot));
-        console.log(newSpot, "newSpot details in SpotForm component----AFTER dispatching fetchCreateSpot")
-        console.log("SpotForm component----AFTER dispatching fetchCreateSpot")
+        console.log(newSpot, "newSpot details in SpotForm component----AFTER dispatching fetchCreateSpot");
 
         if (newSpot) {
             let spotId = newSpot.id;
             
-            history.push(`/spots/${newSpot.id}`);
+            history.push(`/spots/${spotId}`);
             dispatch(fetchSpotDetails(spotId));
         }
         
@@ -92,10 +99,10 @@ const SpotForm = ({ spot, formType}) => {
     
     return (
         <div className='create-spot-container'>
+            <form className ='create-spot-form' onSubmit={handleSubmit} >   
                 <h2>{formType}</h2>
                     <h3>Where's your place located?</h3>
-                        <p>Guests will only get your exact address once they have booked a reservation.</p>
-                            <form className ='create-spot-form' onSubmit={handleSubmit} >                           
+                        <p>Guests will only get your exact address once they have booked a reservation.</p>                    
                                 <div className='country-div'>
                                     <label htmlFor='Country'>Country</label>
                                         {hasSubmitted && !country && (
@@ -132,7 +139,7 @@ const SpotForm = ({ spot, formType}) => {
                                                     placeholder="City"
                                                     required={true}
                                                     value={city}
-                                                    onChange={updateCity}hange={e => setCity(e.target.value)}
+                                                    onChange={updateCity}
                                                 />
                                             <p>, </p>
                                             <label htmlFor='State'>State</label>
@@ -220,49 +227,43 @@ const SpotForm = ({ spot, formType}) => {
                                                                 <h3>Liven up your spot with photos</h3>
                                                                 <p>Submit a link to at least one photo to publish your spot.</p>
                                                                 <input 
-                                                                    type="text"
+                                                                    type="url"
                                                                     placeholder="Preview Image URL"
                                                                     value={previewImage}
                                                                     required={true}
-                                                                    requiredpattern=".[jpg] | .[png] | .[jpeg]"
+                                                                    // requiredpattern=".[jpg] | .[png] | .[jpeg]"
                                                                     onChange={updatePreviewImage}
                                                                 />
                                                                 {hasSubmitted && !previewImage && (
                                                                     <label htmlFor='Preview Image' className='field-error'>Preview image is required</label>
                                                                 )}
                                                                 <input 
-                                                                    type="text"
+                                                                    type="url"
                                                                     placeholder="Image URL"
-                                                                    value={imageA}
-                                                                    onChange={e => setImageA(e.target.value)}
+                                                                    value={img1}
+                                                                    onChange={updateImg1}
                                                                 />
                                                                 <input 
-                                                                    type="text"
+                                                                    type="url"
                                                                     placeholder="Image URL"
-                                                                    value={imageB}
-                                                                    onChange={e => setImageB(e.target.value)}
+                                                                    value={img2}
+                                                                    onChange={updateImg2}
                                                                 />
                                                                 <input 
-                                                                    type="text"
+                                                                    type="url"
                                                                     placeholder="Image URL"
-                                                                    value={imageC}
-                                                                    onChange={e => setImageC(e.target.value)}
+                                                                    value={img3}
+                                                                    onChange={updateImg3}
                                                                 />
                                                                 <input 
-                                                                    type="text"
+                                                                    type="url"
                                                                     placeholder="Image URL"
-                                                                    value={imageC}
-                                                                    onChange={e => setImageC(e.target.value)}
-                                                                />
-                                                                <input 
-                                                                    type="text"
-                                                                    placeholder="Image URL"
-                                                                    value={imageD}
-                                                                    onChange={e => setImageD(e.target.value)}
+                                                                    value={img4}
+                                                                    onChange={updateImg4}
                                                                 />
                                                             </div>
                                     <input type="submit" value={formType} />
-                            </form>
+            </form>
         </div>
     );
 

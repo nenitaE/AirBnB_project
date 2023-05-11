@@ -14,7 +14,7 @@ const UPDATE_SPOT = 'spots/updateSpot'
     //delete a spot
 const DELETE_SPOT = 'spots/deleteSpot'
     //add preview image 
-const ADD_IMAGE = 'spots/deleteSpot'
+const ADD_IMAGES = 'spots/addImages'
 
 
 //SPOTS ACTION CREATORS
@@ -65,11 +65,11 @@ const deleteSpot = (spot) => {
       payload: spot,
     };
 };
-    //add preview image
-const addImage = (spotId, image) => {
+    //add images
+const addImages = (image) => {
     return {
-      type: ADD_IMAGE,
-      payload: {spotId, image}
+      type: ADD_IMAGES,
+      image
     };
 };
   
@@ -121,33 +121,51 @@ export const fetchManageSpots = (user) => async (dispatch) => {
     }
 };  
 
+    //add preview image to spot
+export const fetchAddImage = (user) => async (dispatch) => {
+
+}
 
     //create spot
-export const fetchCreateSpot = (newSpot) => async (dispatch) => {
+export const fetchCreateSpot = (payload) => async (dispatch) => {
     console.log("in store /createSpot thunk")
-    const {
-        address,
-        city,
-        state,
-        country,
-        lat,
-        lng,
-        name,
-        description,
-        price,
-        images
-        } = newSpot;
-
+    let { imagesArr } = payload;
+    console.log(payload, "payload of imagesArr>>>>>>>>>>>>>>>> IN STORE CREATE SPOT THUNK")
+   
+    
+    imagesArr = imagesArr.map((url, i) => {
+        let obj = {};
+        if (i === 0) {
+            obj.preview = true;
+            obj.url = url;
+        } else {
+            obj.preview = false;
+            obj.url = url;
+        }
+        return obj;
+    });
 
     const response = await csrfFetch('/api/spots', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(newSpot)
+        body: JSON.stringify(payload)
     })
 
     if (response.ok) {
         const newSpot = await response.json();
         console.log(newSpot, "In thunk action>>>create spot newSpot<<<<<<<<<<<")
+        
+
+        for await (let image of imagesArr) {
+            let imageRes = await csrfFetch(`/api/spots/${newSpot.id}/images`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(image)
+            })
+            imageRes = await imageRes.json();
+            dispatch(addImages(imageRes))
+        }
+
         dispatch(createSpot(newSpot));
         return newSpot;
     }
@@ -166,7 +184,7 @@ export const fetchEditSpot = (spot) => async (dispatch) => {
         name,
         description,
         price,
-        images
+        SpotImages
         } = spot;
 
     const response = await csrfFetch(`/api/spots/${spot.id}`, {
@@ -221,8 +239,9 @@ const spotReducer = (state = initialState, action) => {
     case UPDATE_SPOT:
         newState = {...state, [action.payload.id]: {...state, ...action.spot}};
         return newState;
-    case ADD_IMAGE:
-        newState = {...state, [action.payload.id]: {...state, [action.payload.spotId.SpotImages]: action.payload.image}};
+    case ADD_IMAGES:
+        // newState = {...state, [action.image.id]: {...state, [action.payload.spotId.SpotImages]: action.payload.image}};
+        newState = {...state, [action.image.id]: {...state[action.image.id]}};
         return newState;
     case DELETE_SPOT:
         newState = {...state};

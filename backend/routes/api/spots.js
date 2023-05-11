@@ -617,7 +617,7 @@ router.get('/', validateFilters, async (req, res, next) => {
         average = sum/spot.Reviews.length;
         spot.dataValues.avgRating = average;
         if ( !spot.dataValues.avgRating ) {
-            spot.dataValues.avgRating = "This spot has not been rated."
+            spot.dataValues.avgRating = 0
         }
         delete spot.dataValues.Reviews;
     }
