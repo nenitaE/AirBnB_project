@@ -20,16 +20,19 @@ function AllSpots() {
 
     const allSpots = Object.values(spots);
 
-    const handleClick = spotId => {
-        history.push(`/spots/${spotId}`)
-      }
+    // const handleClick = spotId => {
+    //     history.push(`/spots/${spotId}`)
+    //   }
 
     return (
         <div className='spots-container'>
-            {allSpots.map(spot => (
-                <Link to={`/spots/${spot.id}`} key={spot.id}>
-                <SpotTile spot={spot} />
-              </Link>
+            {isLoaded && 
+                allSpots.map(spot => (
+                    <div className='spot-tiles' key={spot.id}>
+                    <Link to={`/spots/${spot.id}`} key={spot.id}>
+                        <SpotTile spot={spot} />
+                    </Link>
+                    </div>
             ))}
         </div>
     )

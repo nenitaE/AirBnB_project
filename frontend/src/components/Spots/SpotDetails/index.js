@@ -53,8 +53,6 @@ function SpotDetails () {
     
     // console.log(reviewsArr, "reviewsArr in SpotDetails component----AFTER dispatching fetchreviews")
 
-
-
     if (!spotDetails) return null;
 
     // const {

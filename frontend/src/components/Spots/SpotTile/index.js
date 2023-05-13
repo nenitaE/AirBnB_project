@@ -9,7 +9,7 @@ return (
         <div className='spot-image'>
             <img
                 className='spot-preview-image'
-                src={spot.previewImage || null}
+                src={spot.previewImage }
                 alt={`${spot.name} images`}
                 width="320" height="240"
             />
