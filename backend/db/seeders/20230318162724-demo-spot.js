@@ -80,7 +80,7 @@ module.exports = {
         lat: 25.76134,
         lng: -80.19177,
         name: 'Miami Beach House',
-        description: 'Oceanfront Home in Miami Beach',
+        description: 'Oceanfront Home in Miami',
         price: 1100
       },
       {
@@ -91,7 +91,7 @@ module.exports = {
         country: 'Costa Rica',
         lat: 9.4076,
         lng: -84.15580,
-        name: 'Seaside Estate in Manuel Antonio',
+        name: 'Seaside Estate in M. Antonio',
         description:'Perched on 2.5 acres of private rainforest reserve.', 
         price: 2500
       },
@@ -103,7 +103,7 @@ module.exports = {
         country: 'USA',
         lat: 32.79216,
         lng: -117.25468,
-        name: 'Downtown San Diego Loft',
+        name: 'San Diego Loft',
         description: 'This unit overlooks the Coronado bay.',
         price: 199
       },
@@ -139,7 +139,7 @@ module.exports = {
         country: 'USA',
         lat: 36.174465,
         lng: -86.767960,
-        name: 'Downtown Nashville Loft',
+        name: 'Nashville Loft',
         description: 'Huge loft in the heart of Nashville',
         price: 375
       },
@@ -163,7 +163,7 @@ module.exports = {
     options.tableName = 'Spots';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      name: { [Op.in]: ['Costa Rica beachfront Villa', 'Pacific Beach Penthouse', 'Miami Beach Condo', 'Belize Beachside Villa', 'Ocean Beach Penthouse', 'Miami Beach House', 'Seaside Estate in Manuel Antonio', 'Downtown San Diego Loft', 'Miami Highrise Condo','Tokyo Bath House','Downtown Nashville Loft', 'Myrtle Beach Condo'] }
+      name: { [Op.in]: ['Flamingo Beach Villa', 'Pacific Beach Penthouse','Miami Beach Condo','Belize Beachside Villa', 'Ocean Beach Penthouse', 'Miami Beach House', 'Seaside Estate in M. Antonio', 'San Diego Loft', 'Miami Highrise Condo', 'Tokyo Bath House', 'Nashville Loft', 'Myrtle Beach Condo'] }
     }, {});
   }
 };
