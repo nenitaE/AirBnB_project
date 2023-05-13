@@ -92,7 +92,7 @@ module.exports = {
         lat: 9.4076,
         lng: -84.15580,
         name: 'Seaside Estate in Manuel Antonio',
-        description:'Perched on 2.5 acres of private rainforest reserve in beautiful Manuel Antonio, Seaside 1 and Seaside 2 offer phenomenal views of the Pacific Ocean and surrounding tropical landscape.', 
+        description:'Perched on 2.5 acres of private rainforest reserve.', 
         price: 2500
       },
       {
@@ -104,7 +104,7 @@ module.exports = {
         lat: 32.79216,
         lng: -117.25468,
         name: 'Downtown San Diego Loft',
-        description: 'his unit includes 20ft ceilings, a private balcony that overlooks the Coronado bay, large industrial size windows that have automated blinds, washer and dryer in unit, AC and free Wifi',
+        description: 'This unit overlooks the Coronado bay.',
         price: 199
       },
       {
@@ -116,7 +116,7 @@ module.exports = {
         lat: 25.76134,
         lng: -80.19177,
         name: 'Miami Highrise Condo',
-        description: 'This  876 sq ft apartment will meet all your expectation. Whether you come for business, with your family, friends, or partner, this unit offers a luxurious experience of comfort and relaxation',
+        description: 'This apartment will meet all your expectations.',
         price: 187
       },
       {

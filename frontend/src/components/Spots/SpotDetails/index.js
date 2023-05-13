@@ -8,6 +8,7 @@ import CreateReviewModal from '../../CreateReviewModal';
 import DeleteReviewModal from '../../DeleteReviewModal';
 import './SpotDetails.css';
 import OpenModalButton from '../../OpenModalButton';
+import SpotReviews from '../SpotReviews';
 
 function SpotDetails () {
     console.log("Inside Spot Details component>>>>>>>>>>>>>>")
@@ -41,16 +42,16 @@ function SpotDetails () {
 
     
     //get reviews for this spot
-    const spotReviews = reviews.filter(review => review.spotId === Number(id));
+    // const spotReviews = reviews.filter(review => review.spotId === Number(id));
     
     //create empty Array to hold reviews if logged in user is the person who reviewed spot
-    let reviewsArr = [];
-    if(user) {
-        reviewsArr = reviews.filter(review => review.userId === user.id)
-    }
-    console.log(reviewsArr, "SSSSSSPPPOOOOOOT REVIEWSSSSSSSS")
+    // let reviewsArr = [];
+    // if(user) {
+    //     reviewsArr = reviews.filter(review => review.userId === user.id)
+    // }
+    // console.log(reviewsArr, "SSSSSSPPPOOOOOOT REVIEWSSSSSSSS")
     
-    console.log(reviewsArr, "reviewsArr in SpotDetails component----AFTER dispatching fetchreviews")
+    // console.log(reviewsArr, "reviewsArr in SpotDetails component----AFTER dispatching fetchreviews")
 
 
 
@@ -102,7 +103,8 @@ function SpotDetails () {
                                     </div>
                                 </div>
                                     <div className='spot-reviews-container'>
-                                        <div className="spot-review-details">
+                                    <SpotReviews />
+                                        {/* <div className="spot-review-details">
                                             <div className="spot-avgStar-numReviews">
                                             <p>&#x2605; {spotDetails.avgStarRating.toFixed(1)} &#x2022;  {spotDetails.numReviews} reviews</p>
                                             </div>
@@ -123,7 +125,7 @@ function SpotDetails () {
                                                 buttonText="Post Your Review"
                                                 modalComponent={<CreateReviewModal spotId={id}/>}
                                                 onButtonClick={closeModal}
-                                            />)}
+                                            />)} */}
                                     </div>
                                 </div>        
                         </div>
