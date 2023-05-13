@@ -20,7 +20,7 @@ function CreateReviewModal({spotId}) {
     setStars(value)
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     console.log("<<<<<<<<<<In CreateReviewModal handle submit")
     e.preventDefault();
     
@@ -37,12 +37,14 @@ function CreateReviewModal({spotId}) {
     //   return
     // }
   
-    return dispatch(reviewActions.fetchAddReview(data))
-        .then(dispatch(reviewActions.fetchReviews(spotId)))
+         await dispatch(reviewActions.fetchAddReview(data))
+         await dispatch(reviewActions.fetchReviews(spotId))
         .then(dispatch(spotActions.fetchSpotDetails(spotId)))
         .then(closeModal)
         .catch(
         );
+
+
   };
 
   return (

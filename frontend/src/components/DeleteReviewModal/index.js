@@ -13,11 +13,11 @@ function DeleteReviewModal(review) {
 
   const user = useSelector((state)=> state.session)
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
   
-    return dispatch(reviewActions.fetchDeleteReview(review.reviewId))
-        .then(dispatch(reviewActions.fetchReviews(review.spotId)))
+        await dispatch(reviewActions.fetchDeleteReview(review.reviewId))
+        await dispatch(reviewActions.fetchReviews(review.spotId))
         .then(dispatch(spotActions.fetchSpotDetails(review.spotId)))
         .then(closeModal)
         .catch(

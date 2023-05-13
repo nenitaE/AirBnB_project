@@ -81,10 +81,11 @@ export const fetchDeleteReview = (reviewId) => async (dispatch) => {
     });
     
     if (response.ok) {
-        console.log("<<<<<<<Before Dispatch<<<<<<<<<<<inside DELETE Review thunk")
-    
+       
         const data = await response.json();
-        dispatch(deleteReview(data));
+         console.log(data, "<<<<<<<DATAAAAAAAABefore Dispatch<<<<<<<<<<<inside DELETE Review thunk")
+    
+         dispatch(deleteReview(reviewId));
         console.log("<<<<<<<AFTERRRRR Dispatch<<<<<<<<<<<inside DELETE Review thunk")
     
     } 
