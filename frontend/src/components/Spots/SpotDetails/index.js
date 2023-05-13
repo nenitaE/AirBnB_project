@@ -127,10 +127,10 @@ function SpotDetails () {
                 {/* <SpotReviews /> */}
                     <div className="spot-review-details">
                         <div className="spot-avgStar-numReviews">
-                        <p>&#x2605; {spotDetails.avgStarRating.toFixed(1)} &#x2022;  {spotDetails.numReviews} reviews</p>
+                        <p>&#x2605; {spotDetails.avgStarRating.toFixed(1)} &#x2022;  {spotDetails.numReviews} Reviews</p>
                         </div>
                     </div>
-                        {reviews.filter(review => review.spotId === Number(id)).reverse().map(review => 
+                        {reviews && reviews.filter(review => review.spotId === Number(id)).reverse().map(review => 
                             <div className="review-data" key={review.id}>
                                 <h3>{review.User.firstName}</h3>
                                 {review.review} 
