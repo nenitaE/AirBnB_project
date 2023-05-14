@@ -92,10 +92,10 @@ function SpotDetails () {
     //   } = spotDetails
 
 
-    return spotDetails && (
-        <div className='spot-details-container'>
-            {isLoaded && (<div>
-    
+    return (
+        <div>
+            {isLoaded && (
+                <div className='spot-details-container'>
                     <h1 className='spot-name'>{spotDetails.name}</h1>
                         <div className='spot-details-grid'>
                             <div className='spot-details-location'>
@@ -113,9 +113,7 @@ function SpotDetails () {
                                     </div>
                                     <div className='resContainer'>
                                         <div className='res-box-text'>
-                                            <h3>${spotDetails.price} night &#x2605; {spotDetails.avgStarRating.toFixed(1)} &#x2022;  {spotDetails.numReviews} reviews
-                                                
-                                            </h3>
+                                            <h3>${spotDetails.price} night &#x2605; {spotDetails.avgStarRating.toFixed(1)} &#x2022;  {spotDetails.numReviews} reviews</h3>
                                         </div>
                                         <span>
                                             <button className='res-button' onClick={() => alert('Feature Coming Soon...')}>RESERVE</button>
@@ -130,7 +128,7 @@ function SpotDetails () {
                         <p>&#x2605; {spotDetails.avgStarRating.toFixed(1)} &#x2022;  {spotDetails.numReviews} Reviews</p>
                         </div>
                     </div>
-                        {reviews.filter(review => review.spotId === Number(id)).reverse().map(review => 
+                        {reviews && reviews.filter(review => review.spotId === Number(id)).reverse().map(review => 
                             <div className="review-data" key={review.id}>
                                 <h3>{review.User.firstName}</h3>
                                 {review.review} 
