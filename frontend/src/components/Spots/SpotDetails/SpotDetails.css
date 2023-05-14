@@ -1,14 +1,23 @@
+section {
+  /* display: block;
+  margin: 8px 0; */
+}
+
+.spot-details-container {
+    max-width: 1000px;
+}
 .spot-reviews-container {
     max-width: 1000px;
 }
 
 
 h1 {
+    margin-top: 50px;
     text-align: left;
 }
 
 .spot-details-grid {
-   border-bottom: 2px solid black;
+   border-bottom: 1.75px solid black;
 }
 
 
@@ -56,3 +65,4 @@ h1 {
     height: 50px;
 
 }
+

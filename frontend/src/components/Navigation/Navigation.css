@@ -3,15 +3,16 @@
 }
 
 #nav-container {
-    position: fixed;
+    position: sticky;
     height: 65px;
     width: 100%;
     margin-top: 0;
     border-bottom: solid rgb(233, 229, 229) 1.2px;
     list-style-type: none;
-    background-color: white;
+    /* background-color: white; */
     z-index: 100;
 }
+
 
 .home-btn {
     position: fixed;
@@ -47,9 +48,6 @@
     
 }
 
-.logout-btn {
-    
-}
 #profile {
     background: none;
     padding: 0;
