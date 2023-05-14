@@ -39,7 +39,7 @@ function CreateReviewModal({spotId}) {
   
          await dispatch(reviewActions.fetchAddReview(data))
          await dispatch(reviewActions.fetchReviews(spotId))
-        .then(dispatch(spotActions.fetchSpotDetails(spotId)))
+         await dispatch(spotActions.fetchSpotDetails(spotId))
         .then(closeModal)
         .catch(
         );

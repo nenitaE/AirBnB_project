@@ -15,7 +15,9 @@
 }
 
 .profile-btn {
-    position: absolute;
+    position: relative;
+    display: flex;
+    flex-direction: column;
     text-align: right;
     margin-left: 70%;
     cursor: pointer;
@@ -29,6 +31,7 @@
 .profile-btn li {
     list-style-type: none;
 }
+
 
 
 .logoimg {
@@ -67,8 +70,11 @@
 }
 
 .create-new-spot {
-    position: relative;
+    /* display: grid;
+    align-items: right; */
+    
+    /* position: relative;
     margin-left: 50%;
-    margin-top: 12px;
-
+    margin-top: 12px; */
+    text-decoration: none;
 }
