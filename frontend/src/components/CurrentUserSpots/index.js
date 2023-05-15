@@ -25,7 +25,7 @@ function CurrentUserSpots() {
     const closeMenu = () => setShowMenu(false);
 
     return (
-        <div>
+        <div className="current-user-spots-container">
             <h2>Manage Spots</h2>
             {!spots.length && (
                 <ul>
@@ -38,17 +38,18 @@ function CurrentUserSpots() {
         (<div className='spot-grid' key={spot.id}>
             <Link to={`/spots/${spot.id}`}>
                 <img className='current-spot-images' src={spot.previewImage} alt="spot images" width="320" height="240"/>
-                <div className="spot-loc">{spot.city}, {spot.state}</div>
-                <div className="spot-price">${spot.price} night</div>
-                <div className="spot-rating">{spot.avgStarRating ? spot.avgStarRating.toFixed(2) : '   New'}</div> 
+                <div className="current-spot-loc">{spot.city}, {spot.state}</div>
+                <div className="current-spot-price">${spot.price} night  </div>
+                <div className="spot-rating">{spot.avgStarRating ? spot.avgStarRating.toFixed(2) : <span className="spot-new-label">New</span>}</div> 
             </Link>
-            <div>
-            <button className="update-spot-btn"><NavLink to={`/spots/${spot.id}/edit`}>UPDATE</NavLink></button>
-            <button className="delete-spot-btn"><OpenModalMenuItem
-                itemText="DELETE"
-                onItemClick={closeMenu}
-                modalComponent={<DeleteSpotModal prop={spot}/>}
-                /></button>
+            <div className="current-spot-buttons">
+                <button className="current-update-spot-btn"><NavLink to={`/spots/${spot.id}/edit`}>UPDATE</NavLink></button>
+                <button className="current-delete-spot-btn"><OpenModalMenuItem
+                    itemText="DELETE"
+                    onItemClick={closeMenu}
+                    modalComponent={<DeleteSpotModal prop={spot}/>}
+                    />
+                </button>
             </div>
             </div>))}
         </div>

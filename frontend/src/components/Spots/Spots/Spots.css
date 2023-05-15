@@ -1,4 +1,4 @@
-.current-spots-container {
+.spots-container {
     display: flex;
     flex-wrap: wrap;
     margin: 20px;
@@ -9,12 +9,13 @@
     margin-top: 70px;
     padding: 10px;
     position: absolute;
+    z-index: 1;
 }
 
 .spot-tile {
     text-decoration: none;
 }
-.current-spot-images {
+.spot-image {
     border-radius: 5px;
     padding: 5px;
 }

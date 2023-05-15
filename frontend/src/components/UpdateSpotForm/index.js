@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import SpotForm from "../SpotForm";
+import EditSpotForm from "../SpotForm";
 
 const UpdateSpotForm = () => {
   //populate spot from Redux store
@@ -14,7 +14,7 @@ const UpdateSpotForm = () => {
   
   
   return (
-    <SpotForm spot={spot} formType="Update Your Spot" />
+    <EditSpotForm spot={spot} formType="Update Your Spot" />
   );
 }
 
