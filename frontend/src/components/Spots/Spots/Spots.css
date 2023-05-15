@@ -12,13 +12,12 @@
     z-index: 1;
 }
 
-.spot-tile {
-    text-decoration: none;
-}
-.spot-image {
-    border-radius: 5px;
+.spot-tiles {
+    /* text-decoration: none; */
     padding: 5px;
+    
 }
+
 
 @media only screen and (min-width: 640px) {
     .spot-grid {

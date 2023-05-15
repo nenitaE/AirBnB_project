@@ -5,7 +5,7 @@ function SpotTile ({spot}) {
 
 
 return (
-    <div className='spot-tile'>
+    <div className='spot-tile' >
         <div className='spot-image'>
             <img
                 className='spot-preview-image'
