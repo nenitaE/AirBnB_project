@@ -1,4 +1,4 @@
-.spots-container {
+.current-spots-container {
     display: flex;
     flex-wrap: wrap;
     margin: 20px;
@@ -9,15 +9,19 @@
     margin-top: 70px;
     padding: 10px;
     position: absolute;
+<<<<<<< HEAD
     z-index: 1;
+=======
+>>>>>>> spots-feature
 }
 
-.spot-tiles {
-    /* text-decoration: none; */
+.spot-tile {
+    text-decoration: none;
+}
+.current-spot-images {
+    border-radius: 5px;
     padding: 5px;
-    
 }
-
 
 @media only screen and (min-width: 640px) {
     .spot-grid {

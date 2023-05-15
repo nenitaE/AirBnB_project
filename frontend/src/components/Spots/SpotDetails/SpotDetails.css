@@ -1,15 +1,11 @@
-section {
-  /* display: block;
-  margin: 8px 0; */
+.spot-details-container {
+    padding: 60px;
 }
 
-.spot-details-container {
-    max-width: 1000px;
-}
 .spot-reviews-container {
     max-width: 1000px;
-}
 
+}
 
 h1 {
     margin-top: 50px;
@@ -20,11 +16,10 @@ h1 {
    border-bottom: 1.75px solid black;
 }
 
-
 .spot-container-text {
     width: 67%;
-
 }
+
 .resContainer {
     min-width: 250px;
     max-height: 125px;

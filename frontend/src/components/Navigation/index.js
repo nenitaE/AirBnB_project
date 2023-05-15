@@ -19,21 +19,21 @@ function Navigation({ isLoaded }){
             </NavLink>
           </li>
         </div>
-        <div className='profile-btn'>
-            {isLoaded && (
-              <span>
-                <li>
-                  <ProfileButton user={sessionUser} />
-                </li>
-              </span>
-            )}
-            {!sessionUser || (
+        <div id='nav-bar-right'>
+              <span className='profile-btn'>
+                  {isLoaded && (
+                    <span>
+                      <li>
+                        <ProfileButton user={sessionUser} />
+                      </li>
+                    </span>)}
+              {!sessionUser || (
               <span  className='create-new-spot'>
                 <li>
                     <NavLink to="/spots/new">Create a New Spot</NavLink>
                 </li>
+              </span>)}
               </span>
-            )}
             </div>
         </div>
   );
