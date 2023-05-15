@@ -18,6 +18,7 @@ function SpotDetails () {
     const [showMenu, setShowMenu] = useState(false);
     const {id} = useParams();
     const { closeModal } = useModal();
+
     const spotDetails = useSelector(state => state.spots[id]);
     console.log(spotDetails, "SPOTDETAILS")
     
@@ -41,62 +42,28 @@ function SpotDetails () {
     console.log("SpotDetails component----AFTER dispatching fetchSpotDetails")
 
     if (!spotDetails) return null;
-    //get reviews for this spot
-    const spotReviews = reviews.filter(review => review.spotId === Number(id));
     
-    //create empty Array to hold reviews if logged in user is the person who reviewed spot
-    // let reviewsArr = [];
-    // if(user) {
-    //     reviewsArr = reviews.filter(review => review.userId === user.id)
-    // }
-    // console.log(reviewsArr, "SSSSSSPPPOOOOOOT REVIEWSSSSSSSS")
-    
-    // console.log(reviewsArr, "reviewsArr in SpotDetails component----AFTER dispatching fetchreviews")
+    // if (!spotReviews) return null
+   
 
-    // const monthCreated = review.createdAt.slice(5,6);
-    // const monthsObj= {
-    //     '01':"January",
-    //     '02':"February",
-    //     '03':"March",
-    //     '04':"April",
-    //     '05':"May",
-    //     '06':"June",
-    //     '07':"July",
-    //     '08':"August",
-    //     '09':"September",
-    //     '10':"October",
-    //     '11':"November",
-    //     '12':"December"
-    // };
-    // for (let month in monthsObj) {
-    //     if (monthCreated == Number(month)){
-    //         let stringMonth = monthsObj[month]
-            
-    //         console.log(stringMonth, "Month review created  in string format")
-    //         return stringMonth
-    //     }
-
-    // }
-    // const year = review.createdAt.slice(0,4);
-
-    // const {
-    //     name,
-    //     city,
-    //     state,
-    //     country,
-    //     description,
-    //     price,
-    //     avgStarRating,
-    //     numReviews,
-    //     SpotImages
-    //   } = spotDetails
+    const {
+        name,
+        city,
+        state,
+        country,
+        description,
+        price,
+        avgStarRating,
+        numReviews,
+        SpotImages
+      } = spotDetails
 
 
-    return spotDetails && (
+    return (
         <div className='spot-details-container'>
-            {isLoaded && (<div>
-    
-                    <h1 className='spot-name'>{spotDetails.name}</h1>
+            {isLoaded && (
+                <div>
+                     <h1 className='spot-name'>{spotDetails.name}</h1>
                         <div className='spot-details-grid'>
                             <div className='spot-details-location'>
                                 {spotDetails.city}, {spotDetails.state}, {spotDetails.country}
@@ -113,8 +80,10 @@ function SpotDetails () {
                                     </div>
                                     <div className='resContainer'>
                                         <div className='res-box-text'>
-                                            <h3>${spotDetails.price} night &#x2605; {spotDetails.avgStarRating.toFixed(1)} &#x2022;  {spotDetails.numReviews} reviews
-                                                
+                                            <h3>${spotDetails.price} night &#x2605; <span> {Number(spotDetails.avgStarRating) ? Number(spotDetails.avgStarRating).toFixed(1) : 'New '} </span> 
+                                                {spotDetails.numReviews > 0 && <span>&#x2022;</span>}   
+                                                {spotDetails.numReviews == 1 && <span> {spotDetails.numReviews} Review</span>}
+                                                {spotDetails.numReviews > 1 && <span> {spotDetails.numReviews} Reviews</span>}
                                             </h3>
                                         </div>
                                         <span>
@@ -122,39 +91,65 @@ function SpotDetails () {
                                         </span>
                                     </div>
                                 </div>
-                </div>
-                <div className='spot-reviews-container'>
-                {/* <SpotReviews /> */}
-                    <div className="spot-review-details">
-                        <div className="spot-avgStar-numReviews">
-                        <p>&#x2605; {spotDetails.avgStarRating.toFixed(1)} &#x2022;  {spotDetails.numReviews} Reviews</p>
                         </div>
-                    </div>
-                        {reviews.filter(review => review.spotId === Number(id)).reverse().map(review => 
-                            <div className="review-data" key={review.id}>
-                                <h3>{review.User.firstName}</h3>
-                                {review.review} 
-                                {!user || user.id === review.userId && (
-                                    <OpenModalButton
-                                        buttonText="Delete"
-                                        modalComponent={<DeleteReviewModal reviewId={review.id} spotId={spotDetails.id}/>}
-                                        onButtonClick={closeModal}
-                                    />)}
+                        <div className='spot-reviews-container'>
+                            <div className="spot-review-details">
+                                <div className="spot-avgStar-numReviews">
+                                    <p>&#x2605; 
+                                        <span> {Number(spotDetails.avgStarRating) ? Number(spotDetails.avgStarRating).toFixed(1) : 'New '} </span> 
+                                        {spotDetails.numReviews > 0 && <span>&#x2022;</span>}   
+                                        {spotDetails.numReviews == 1 && <span> {spotDetails.numReviews} Review</span>}
+                                        {spotDetails.numReviews > 1 && <span> {spotDetails.numReviews} Reviews</span>}
+                                    </p>
+                                </div>
                             </div>
-                        )}
-
-                        {!user || user.id !== spotDetails.ownerId && (
-                        <OpenModalButton 
-                            buttonText="Post Your Review"
-                            modalComponent={<CreateReviewModal spotId={id}/>}
-                            onButtonClick={closeModal}
-                        />)}
-                        </div>
-                        </div>                
-            )}
+                            {user && user.id !== spotDetails.Owner.id &&
+                                !reviews.some(review => review.userId === user.id) && (
+                                    <div>
+                                        <OpenModalButton 
+                                        buttonText="Post Your Review"
+                                        modalComponent={<CreateReviewModal spotId={id}/>}
+                                        onButtonClick={closeModal}
+                                        />
+                                    </div>
+                                )
+                            }
+                        {reviews.length > 0 ? (
+                            <ul className='list-spot-reviews'>
+                                {reviews.map(review => {
+                                    const date = new Date(review.updatedAt).toLocaleDateString('en-US',
+                                        {
+                                            month: 'long',
+                                            year: 'numeric'
+                                        }) 
+                                    return (
+                                            <div className='spot-review-data' key={review.id}>
+                                                <div>
+                                                    {/* <h3 className='spot-reviewer'>{review.User.firstName}</h3> */}
+                                                    <p className='spot-review-date'>{date}</p> 
+                                                    <div className='spot-review'>{review.review}</div>
+                                                </div>
+                                                {user && user.id === review.userId && (
+                                                    <OpenModalButton
+                                                        buttonText="Delete"
+                                                        modalComponent={<DeleteReviewModal reviewId={review.id} spotId={spotDetails.id}/>}
+                                                        onButtonClick={closeModal}
+                                                    />)}
+                                            </div>
+                                    )
+                                }
+                                )}
+                            </ul>) : ( user && user.id !== spotDetails.ownerId && (
+                                            <h3>Be the first to post a review!</h3>
+                                        )
+                                    )
+                        }
+                        </div> 
+                </div>               
+            )
+            }
         </div>
     )
-
 }
 
 export default SpotDetails

@@ -29,6 +29,7 @@ function DeleteReviewModal(review) {
       <h3>Confirm Delete</h3>
       <h5>Are you sure you want to delete this review?</h5>
       <button type='submit' onClick={handleSubmit} className='confirm-delete-btn'>Yes (Delete Review)</button>
+      <p></p>
       <button onClick={closeModal} className='refuse-delete-btn'>No (Keep Review)</button>
     </div>
   );

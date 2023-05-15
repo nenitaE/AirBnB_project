@@ -1,8 +1,9 @@
 .spot-tiles {
+    position: static;
     border: solid rgb(233, 229, 229) 1.2px;
     border-radius: 10px;
     cursor: pointer;
-    z-index: 10;
+    padding: 5px;
 }
 .spot-preview-image {
     border-radius: 10px;
@@ -20,22 +21,4 @@
 .star-icon {
     margin-top: 0;
     float: right;
-}
-.spot-tiles.tooltip-on-hover {
-    z-index: 1;
-}
-
-.tooltip {
-    position: absolute;
-    visibility: hidden;
-    left: 50%;
-    top: 100%;
-    transform: translateX(-50%);
-    background-color: white;
-    color: rgb(253,90,90);
-}
-
-.spot-tile:hover .tooltip {
-    visibility: visible;
-    
 }

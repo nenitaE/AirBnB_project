@@ -8,20 +8,20 @@ const SpotForm = ({ spot, formType}) => {
     console.log("Inside SpotForm component>>>>>>>>>>>>>>")
     
     const history = useHistory();
-    const [country, setCountry] = useState(spot.country);
-    const [address, setAddress] = useState(spot.address);
-    const [city, setCity] = useState(spot.city);
-    const [state, setState] = useState(spot.state);    
-    const [lat, setLat] = useState(spot.lat);
-    const [lng, setLng] = useState(spot.lng);
-    const [name, setName] = useState(spot.name);
-    const [description, setDescription] = useState(spot.description);
-    const [price, setPrice] = useState(spot.price);
-    const [previewImage, setPreviewImage] = useState(spot.previewImage);
-    const [img1, setImg1] = useState(spot.img1);
-    const [img2, setImg2] = useState(spot.img2);
-    const [img3, setImg3] = useState(spot.img3);
-    const [img4, setImg4] = useState(spot.img4);
+    const [country, setCountry] = useState('');
+    const [address, setAddress] = useState('');
+    const [city, setCity] = useState('');
+    const [state, setState] = useState('');    
+    const [lat, setLat] = useState('');
+    const [lng, setLng] = useState('');
+    const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
+    const [price, setPrice] = useState('');
+    const [previewImage, setPreviewImage] = useState('');
+    const [img1, setImg1] = useState('');
+    const [img2, setImg2] = useState('');
+    const [img3, setImg3] = useState('');
+    const [img4, setImg4] = useState('');
     const [validationErrors, setValidationErrors] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false);
     
@@ -61,7 +61,7 @@ const SpotForm = ({ spot, formType}) => {
         if(!description.length) errors.push('Description is required');
         if(!name.length) errors.push('Name is required');
         if(!Number(price)) errors.push('Price is required');
-        if(!previewImage) errors.push('Preview Image is required');
+        if(!previewImage.length) errors.push('Preview Image is required');
         setValidationErrors(errors);
     }, [country, city, address, state, lat, lng, description, name, price, previewImage])
 

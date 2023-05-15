@@ -4,6 +4,7 @@ import * as spotActions from "../../store/spots";
 import { useDispatch, useSelector } from "react-redux";
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import DeleteSpotModal from '../DeleteSpotModal'
+import CreateSpotForm from '../CreateSpotForm'
 import './CurrentUser.css'
 
 
@@ -26,20 +27,25 @@ function CurrentUserSpots() {
     return (
         <div>
             <h2>Manage Spots</h2>
+            {!spots.length && (
+                <ul>
+                    <NavLink to="/spots/new" className='create-new-spot-link'>Click Here to Create a New Spot</NavLink>
+                </ul>
+            )}
         <div className="current-spots-container">
         {isLoaded && 
         spots.map((spot) => 
         (<div className='spot-grid' key={spot.id}>
             <Link to={`/spots/${spot.id}`}>
-                <img className='spot-images' src={spot.previewImage} alt="spot images" width="320" height="240"/>
-                <div className="spot-loc">{spot.city},{spot.state}</div>
+                <img className='current-spot-images' src={spot.previewImage} alt="spot images" width="320" height="240"/>
+                <div className="spot-loc">{spot.city}, {spot.state}</div>
                 <div className="spot-price">${spot.price} night</div>
-                <div className="spot-rating">{spot.avgStarRating ? spot.avgStarRating.toFixed(2) : 'New'}</div> 
+                <div className="spot-rating">{spot.avgStarRating ? spot.avgStarRating.toFixed(2) : '   New'}</div> 
             </Link>
             <div>
             <button className="update-spot-btn"><NavLink to={`/spots/${spot.id}/edit`}>UPDATE</NavLink></button>
-            <button className="delete-spot=btn"><OpenModalMenuItem
-                itemText="Delete"
+            <button className="delete-spot-btn"><OpenModalMenuItem
+                itemText="DELETE"
                 onItemClick={closeMenu}
                 modalComponent={<DeleteSpotModal prop={spot}/>}
                 /></button>

@@ -13,7 +13,8 @@ function CreateReviewModal({spotId}) {
   const [review, setReview] = useState('');
   const [errors, setErrors] = useState([]);
 
-  const user = useSelector((state)=> state.session)
+  const sessionUser = useSelector((state)=> state.session.user)
+  console.log(sessionUser, "USERRRRR IN POST REVIEW MODAL")
 
   const handleStarRtg = (e, value) => {
     e.preventDefault();
@@ -27,8 +28,10 @@ function CreateReviewModal({spotId}) {
     const data = { 
       spotId,
       review,
-      stars      
+      stars,
+      sessionUser     
     };
+    console.log(data, "----------DATA---------------in spot reviews modal")
 
     const errors = {};
     // if (stars === '' || review.length < 10 ) {

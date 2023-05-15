@@ -1,7 +1,11 @@
-.spot-reviews-container {
-    max-width: 1000px;
+.spot-details-container {
+    padding: 60px;
 }
 
+.spot-reviews-container {
+    max-width: 1000px;
+
+}
 
 h1 {
     text-align: left;
@@ -11,11 +15,10 @@ h1 {
    border-bottom: 2px solid black;
 }
 
-
 .spot-container-text {
     width: 67%;
-
 }
+
 .resContainer {
     min-width: 250px;
     max-height: 125px;
