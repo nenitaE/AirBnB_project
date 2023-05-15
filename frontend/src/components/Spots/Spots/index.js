@@ -28,7 +28,9 @@ function AllSpots() {
         <div className='spots-container'>
             {isLoaded && 
                 allSpots.map(spot => (
-                    <div className='spot-tiles' key={spot.id}>
+                    <div className='spot-tiles tooltip-on-hover' key={spot.id} data-name= {spot.name}>
+                    <div className='tooltip-on-hover'></div>
+                    <div className='tooltip' title={spot.name}>{spot.name}</div>
                     <Link to={`/spots/${spot.id}`} key={spot.id}>
                         <SpotTile spot={spot} />
                     </Link>
