@@ -9,6 +9,7 @@
     margin-top: 70px;
     padding: 10px;
     position: absolute;
+    z-index: 1;
 }
 
 .spot-tile {

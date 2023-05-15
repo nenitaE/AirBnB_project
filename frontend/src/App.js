@@ -26,7 +26,7 @@ function App() {
           <Route exact path='/' component={Spots} />
           <Route exact path='/spots/current' component={CurrentUserSpots} />
           <Route path="/spots/new" component={CreateSpotForm} />
-          <Route path="/spots/:spotId/edit" component={UpdateSpotForm} />
+          <Route path="/spots/:spotId/edit" component={EditSpotForm} />
           <Route exact path='/spots/:id'component={SpotDetails} />
           
         </Switch>
