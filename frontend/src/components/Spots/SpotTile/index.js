@@ -15,7 +15,7 @@ return (
             />
         </div>
             <div className='spot-container'>
-                <div className='spot-location'>
+                <span className='spot-location'>
                     <div className='location'>
                         {spot.city}, {spot.state}
                     </div>
@@ -26,14 +26,12 @@ return (
                             </div>
                         </p>
                     </div>
-                </div>
-                    <div className='spot-data'>
+                </span>
                         <span className='stars'>
                                     <p className='star-icon'>&#x2605; 
                                         {Number(spot.avgRating) ? Number(spot.avgRating).toFixed(1) : 'New'}
                                     </p>
                         </span>
-                    </div>
                 </div>
             </div>
     )
