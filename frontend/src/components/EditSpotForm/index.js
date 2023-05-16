@@ -1,28 +1,32 @@
 import { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchEditSpot, fetchSpotDetails } from '../../store/spots';
 import './EditSpotForm.css';
 
 const EditSpotForm = ({ spot, formType}) => {
     console.log("Inside SpotForm component>>>>>>>>>>>>>>")
+
     const {spotId} = useParams();
     console.log(spotId, "spotID.....")
+
+
     const history = useHistory();
-    const [country, setCountry] = useState("");
-    const [address, setAddress] = useState("");
-    const [city, setCity] = useState("");
-    const [state, setState] = useState("");    
-    const [lat, setLat] = useState("");
-    const [lng, setLng] = useState("");
-    const [name, setName] = useState("");
-    const [description, setDescription] = useState("");
-    const [price, setPrice] = useState("");
-    const [previewImage, setPreviewImage] = useState("");
-    const [img1, setImg1] = useState("");
-    const [img2, setImg2] = useState("");
-    const [img3, setImg3] = useState("");
-    const [img4, setImg4] = useState("");
+
+    const [country, setCountry] = useState(spot.country);
+    const [address, setAddress] = useState(spot.address);
+    const [city, setCity] = useState(spot.city);
+    const [state, setState] = useState(spot.state);    
+    const [lat, setLat] = useState(spot.lat);
+    const [lng, setLng] = useState(spot.lng);
+    const [name, setName] = useState(spot.name);
+    const [description, setDescription] = useState(spot.description);
+    const [price, setPrice] = useState(spot.price);
+    const [previewImage, setPreviewImage] = useState(spot.previewImage);
+    const [img1, setImg1] = useState(spot.img1);
+    const [img2, setImg2] = useState(spot.img2);
+    const [img3, setImg3] = useState(spot.img3);
+    const [img4, setImg4] = useState(spot.img4);
     const [validationErrors, setValidationErrors] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false);
     
@@ -87,11 +91,11 @@ const EditSpotForm = ({ spot, formType}) => {
                 imagesArr 
             };
         
-        let newSpot = await dispatch(fetchEditSpot(spot));
-        console.log(newSpot, "newSpot details in SpotForm component----AFTER dispatching fetchCreateSpot");
+        let editedSpot = await dispatch(fetchEditSpot(spot));
+        console.log(editedSpot, "newSpot details in SpotForm component----AFTER dispatching fetchCreateSpot");
 
-        if (newSpot) {
-            let spotId = newSpot.id;
+        if (editedSpot) {
+            let spotId = editedSpot.id;
             
             history.push(`/spots/${spotId}`);
             dispatch(fetchSpotDetails(spotId));
