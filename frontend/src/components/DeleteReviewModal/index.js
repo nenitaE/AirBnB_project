@@ -11,7 +11,7 @@ function DeleteReviewModal(review) {
   const history = useHistory();
   const { closeModal } = useModal();
 
-  const user = useSelector((state)=> state.session)
+  const user = useSelector((state)=> state.session);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

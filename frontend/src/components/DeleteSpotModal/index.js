@@ -6,19 +6,19 @@ import { useHistory } from 'react-router-dom';
 import './DeleteSpot.css'
 
 function DeleteSpotModal(spot) {
+  console.log(spot, "spot inside DELETE modal")
   const dispatch = useDispatch();
   const history = useHistory();
   const { closeModal } = useModal();
 
-  const owner = useSelector((state)=> state.session)
+  const owner = useSelector((state)=> state.session);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
   
-    return dispatch(spotActions.fetchDeleteSpot(spot.prop))
+      await dispatch(spotActions.fetchDeleteSpot(spot.prop))
       .then(closeModal)
-      .catch(
-      );
+      // history.push('/')
   };
 
   return (
